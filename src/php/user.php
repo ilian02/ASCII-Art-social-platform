@@ -9,11 +9,11 @@
 
         private $db;
 
-        public function __construct($username, $password) {
+        public function __construct($username, $password, $email) {
             $this->username = $username;
             $this->password = $password;
+            $this->email = $email;
 
-            $this->db = new Database();
         }
 
         public function getUsername() {
@@ -26,30 +26,6 @@
 
         public function getUserId() {
             return $this->userId;
-        }
-
-        public function exists() {
-            $userResult = $this->db->selectUserQuery(['username' => $this->username]);
-
-            if ($userResult["success"]) {
-                $user = $userResult["data"]->fetch();
-
-                return ['success' => true, 'data' => $user];
-            }
-
-            return $userResult;
-        }
-
-        public function isValid($password, $passwordHash) {
-            return password_verify($password, $passwordHash);
-        }
-
-        public function createUser($passwordHash, $email) {
-            $result = $this->db->insertUserQuery(['username' => $this->username, 'password' => $passwordHash, 'email' => $email]);
-        }
-
-        public function getUserById($userId) {
-            return $this->db->selectUserByIdQuery(['id' => $userId])['data']->fetch();
         }
     }
 ?>

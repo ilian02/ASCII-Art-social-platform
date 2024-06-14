@@ -52,21 +52,30 @@
 <body>
     <div class="register-container">
         <h2>Register</h2>
-        <form action="src/php/register.php" method="POST">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-            
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
-            
-            <button type="submit">Register</button>
+        <form id="register-form">
+            <label for="username">
+                Username
+            <input type="text" id="username" name="username">
+            </label>
+
+            <label for="email">
+                Email
+            <input type="email" id="email" name="email">
+            </label>
+
+            <label for="password">
+                Password
+            <input type="password" id="password" name="password">
+            </label>
+
+            <label for="confirm_password">
+                Confirm Password
+            <input type="password" id="confirm_password" name="confirm_password">
+            </label>
+
+            <button>Register</button>
         </form>
     </div>
+    <script src="src/js/register.js"></script>
 </body>
 </html>
