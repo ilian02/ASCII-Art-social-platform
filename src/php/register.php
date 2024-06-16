@@ -6,36 +6,20 @@
 
     $errors = [];
 
+    session_start();
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userData = json_decode(file_get_contents("php://input"), true);
 
         if ($userData === null && json_last_error() !== JSON_ERROR_NONE) {
-            $result = array('status' => 'error', 'message' => 'Invalid JSON data');
+            $errors[] = 'Not valid json format';
         }
 
-        if ($userData['username'] == "") {
-            $errors[] = ["error" => 'Полето потребителското име е празно'];
-        }
-        
-        if ($userData['email'] == "") {
-            $errors[] = ["error" => 'Полето имейл е празно'];
-
-        }
-
-        if ($userData['password'] == "") {
-            $errors[] = ["error" => 'Полето парола е празно'];
-
-        }
-
-        if ($userData['confirm_password'] == "") {
-            $errors[] = ["error" => 'Полето потвърждаване на парола е празно'];
-        }
+        $errors[] = validate_input($userData);
 
         if ($errors) {
-            echo json_encode(array('status' => 'unsuccessful', 'message' => $errors));
+            echo json_encode(array('status' => 'unsuccessful', 'message' => 'Проблем с данните', 'errors' => $errors));
         } else {
-            //echo json_encode(array('status' => 'success', 'message' => 'Validation is fine'));
-
             try {
                 $db = new DB();
                 $conn = $db->getConnection();
@@ -46,7 +30,7 @@
 
                 if ($stmt->rowCount() > 0) {
                     $errors[] = "Потребителското име или имейл вече съществуват";
-                    echo json_encode(array('status' => 'unsuccessful', 'message' => $errors));
+                    echo json_encode(array('status' => 'unsuccessful', 'message' => 'There were errors with the input', 'errors' => $errors));
 
                 } else {
 
@@ -54,6 +38,8 @@
                     $stmt = $conn->prepare($sql);
                     $userData["password"] = password_hash($userData["password"], PASSWORD_DEFAULT);
                     $stmt->execute([$userData['username'], $userData['email'], $userData['password']]);
+
+                    $_SESSION['username'] = $userData['username'];
 
                     $sql = "SELECT * FROM users WHERE username = ?";
                     $stmt = $conn->prepare($sql);
@@ -70,5 +56,39 @@
 
     } else {
         return ['status' => 'error'];
+    }
+
+
+
+    function validate_input($userData) {
+        
+        $errors = [];
+
+        if ($userData['username'] == "") {
+            $errors[] = 'Полето потребителското име е празно';
+        }
+
+        if (strlen($userData['username']) < 8) {
+            $errors[] = 'Полето потребителското име трябва да е поне 8 символа';
+        }
+        
+        if ($userData['email'] == "") {
+            $errors[] = 'Полето имейл е празно';
+        }
+
+        if ($userData['password'] == "") {
+            $errors[] = 'Полето парола е празно';
+        }
+
+        if ($userData['confirm_password'] == "") {
+            $errors[] = 'Полето потвърждаване на парола е празно';
+        }
+
+        if ($userData['password'] != $userData['confirm_password']) {
+            $errors[] = 'Паролите не съвпадат';
+        }
+
+
+        return $errors;
     }
 ?>

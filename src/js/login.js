@@ -1,6 +1,4 @@
-const registerForm = document.getElementById("register-form")
-const errorBox = document.createElement('p')
-registerForm.appendChild(errorBox)
+const registerForm = document.getElementById("login-form")
 
 registerForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -12,9 +10,9 @@ registerForm.addEventListener('submit', (event) => {
         userData[input.name] = input.value
     })
 
+    console.log(userData)
 
-
-    fetch('src/php/register.php', {
+    fetch('src/php/login.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -24,25 +22,17 @@ registerForm.addEventListener('submit', (event) => {
         if (!res.ok) {
             throw res.json().then(err => {throw err});
         }
+        console.log(res.status)
+        // console.log(res.json())
         return res.json()
     }).then(data => {
         if (data.status === "success") {
             location = 'index.html';
         } else if (data.status === "unsuccessful") {
             // ADD ERROR MESSAGE ON SCREEN
-            errorBox.innerHTML = ''
-
-            let errors = data.errors[0]
-
-            errors.forEach(function(error) {
-                errMessage = document.createElement('p')
-                errMessage.innerText = error
-                errorBox.append(errMessage)
-            })
-            
-            console.log(message.innerText)
+            console.log(data.message)
         } else {
-            console.log('Защо сме тук' + data.message)
+            console.log(data.message)
         }
         
     }).catch((err) => {
