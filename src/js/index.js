@@ -1,4 +1,22 @@
 const usernameField = document.getElementById("username-field")
+const editor_button = document.getElementById("picture_editor")
+
+
+editor_button.addEventListener('click', () => {
+    const param = 'new_picture1'
+    const url = `src/php/pictureEditor.php?param=${encodeURIComponent(param)}`
+
+    fetch(url, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message)
+    }).catch((error) => {
+        console.log('error ' + error)
+    })
+})
+
 
 function load_username() {
     fetch('src/php/index.php', {
