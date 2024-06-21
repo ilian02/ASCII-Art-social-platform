@@ -1,15 +1,23 @@
+body {
+    -webkit-user-select: none; /* Disable selection for WebKit/Blink browsers */
+    -moz-user-select: none; /* Disable selection for Firefox */
+    -ms-user-select: none; /* Disable selection for IE/Edge */
+    user-select: none; /* Disable selection for supported browsers */
+}
 
+#symbol-table {
+    margin-top: 50px;
+}
 
 table {
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
     border-collapse: collapse;
+    border-color: grey;
 }
-
-td {
-    width: 15px;
+table td {
     height: 15px;
+    width: 10px;
     text-align: center;
 }
 
