@@ -9,17 +9,17 @@ function load_username() {
         }
         return res.json()
     }).then(data => {
-        console.log(data.status)
         if (data.status === "success") {
             if (data.isLogged == true) {
                 usernameField.innerText = data.username
+            } else {
+                usernameField.innerHTML = 'Anon'
             }
-            console.log(data.message)
         } else if (data.status === "unsuccessful") {
             console.log('status was unsucc')
-            usernameField.innerText = 'Anon'
+            
         } else {
-            console.log(data.message)
+            console.log('how are we here')
         }
         
     }).catch((err) => {
@@ -28,4 +28,3 @@ function load_username() {
 }
 
 load_username()
-console.log('here')
