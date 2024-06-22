@@ -3,18 +3,14 @@ const editor_button = document.getElementById("picture_editor")
 
 
 editor_button.addEventListener('click', () => {
-    const param = 'new_picture1'
-    const url = `src/php/pictureEditor.php?param=${encodeURIComponent(param)}`
+    const pic_id = 'new_picture1'
 
-    fetch(url, {
-        method: 'GET',
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data.message)
-    }).catch((error) => {
-        console.log('error ' + error)
-    })
+    console.log('dsad')
+
+    const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
+    console.log(url)
+    
+    window.location = url;
 })
 
 

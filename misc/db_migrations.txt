@@ -10,13 +10,12 @@ CREATE TABLE users (
 CREATE TABLE pictures(
     id INT(11) NOT NULL AUTO_INCREMENT,
     title varchar(128),
-    content varchar(1500),
-    width INT(8) DEFAULT 15,
-    height INT(8) DEFAULT 15,
+    content varchar(2500),
+    width INT(8) DEFAULT 30,
+    height INT(8) DEFAULT 30,
     artist_id INT(11) NOT NULL,
-    animation_id INT(11),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIME,
     last_edited DATETIME NOT NULL DEFAULT CURRENT_TIME,
     PRIMARY KEY (id),
     FOREIGN KEY (artist_id) REFERENCES users (id) ON DELETE CASCADE
-    )
+)
