@@ -3,24 +3,64 @@ body {
     -moz-user-select: none; /* Disable selection for Firefox */
     -ms-user-select: none; /* Disable selection for IE/Edge */
     user-select: none; /* Disable selection for supported browsers */
+
+}
+
+#ascii-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #symbol-table {
     margin-top: 50px;
 }
 
-table {
+#table-container table {
     margin-left: auto;
     margin-right: auto;
     border-collapse: collapse;
-    border-color: grey;
+    border-color: rgb(185, 185, 185);
 }
-table td {
-    height: 15px;
-    width: 10px;
+
+#table-container table td {
+    height: 24.8px;
+    width: 21.98px;
+    min-width: 21.98px;
     text-align: center;
 }
 
-.bordered > tr > td {
-    border: 1px solid black;
+#table-container table > tr > td {
+    border: 1px solid rgb(185, 185, 185);
 }
+
+
+
+#vertical-add-line {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 30px;
+    text-align: center;
+
+    border-collapse: collapse;
+}
+
+#horizontal-add-line {
+    margin-right: 30px;
+    margin-left: 30px;
+    font-size: 30px;
+    text-align: center;
+    
+    border-collapse: collapse;
+}
+
+#vertical-add-line tr > td {
+    border: 1px solid rgb(185, 185, 185);
+} 
+
+#horizontal-add-line tr > td {
+    border: 1px solid rgb(185, 185, 185);
+} 

@@ -11,12 +11,41 @@
     
     <h1>ASCII Editor</h1>
 
-    <div id="table-container">
-        <table id="ascii-table">
-        </table>
-    </div>
+    <table id="vertical-add-line"class="add-lines">
+        <tr><td id="add-up">▲</td></tr>
+        <tr><td id="remove-up">▼</td></tr>
+    </table>
 
-    <div id="symbol-container">
+    <div id="ascii-screen">
+        
+
+        <table id="horizontal-add-line"class="add-lines">
+            <tr>
+                <td id="add-left">◀</td>
+                <td id="remove-left">▶</td>
+            </tr>
+        </table>
+
+        <div id="table-container">
+            <table id="ascii-table">
+            </table>
+        </div>
+
+        <table id="horizontal-add-line"class="add-lines">
+            <tr>
+                <td id="remove-right">◀</td>
+                <td id="add-right">▶</td>
+            </tr>
+        </table>
+
+        
+    </div>
+    <table id="vertical-add-line" class="add-lines">
+        <tr><td id="remove-down">▲</td></tr>
+        <tr><td id="add-down">▼</td></tr>
+    </table>
+
+    <div id="table-container">
         <table id="symbol-table">
         </table>
     </div>
