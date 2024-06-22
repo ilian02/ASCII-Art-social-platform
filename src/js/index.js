@@ -5,8 +5,6 @@ const editor_button = document.getElementById("picture_editor")
 editor_button.addEventListener('click', () => {
     const pic_id = 'new_picture1'
 
-    console.log('dsad')
-
     const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
     console.log(url)
     
