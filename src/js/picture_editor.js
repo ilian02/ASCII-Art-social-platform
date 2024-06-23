@@ -52,19 +52,47 @@ function resize_table(direction, add) {
     else if (direction == 1) {//left
         console.log("left")
         if (add) {
-
+            width += 1
+            let i = 0
+            asciiTable.querySelectorAll('tr').forEach(row => {
+                let newCell = document.createElement('td')
+                newCell.innerText = ''
+                row.insertBefore(newCell, row.firstElementChild)
+                cells_data[i].unshift('')
+                i++
+            })
         }
         else {
-
+            width -= 1
+            let i = 0
+            asciiTable.querySelectorAll('tr').forEach(row => {
+                row.removeChild(row.firstElementChild)
+                cells_data[i].shift()
+                i++
+            })
         }
     }
     else if (direction == 2) {//right
         console.log("right")
         if (add) {
-
+            width += 1
+            let i = 0
+            asciiTable.querySelectorAll('tr').forEach(row => {
+                let newCell = document.createElement('td')
+                newCell.innerText = ''
+                row.appendChild(newCell)
+                cells_data[i].push('')
+                i++
+            })
         }
         else {
-
+            width -= 1
+            let i = 0
+            asciiTable.querySelectorAll('tr').forEach(row => {
+                row.removeChild(row.lastElementChild)
+                cells_data[i].pop()
+                i++
+            })
         }
     }
     else if (direction == 3) {//down
