@@ -10,6 +10,10 @@ const arrows = [
     [document.getElementById('remove-down'), document.getElementById('add-down')]
 ]
 
+const buttons = [
+    document.getElementById('copy-to-clipboard')
+]
+
 let width = 40
 let height = 25
 
@@ -180,16 +184,6 @@ for (let i = 0; i < 4; i++) {
     }
 }
 
-// up_arrows[0].addEventListener('click', function(event) {
-//     console.log('Clicked on cell: ', up_arrows[0].innerText);
-//     resize_table(0, true)
-// });
-
-// up_arrows[1].addEventListener('click', function(event) {
-//     console.log('Clicked on cell: ', up_arrows[1].innerText);
-//     resize_table(0, false)
-// });
-
 function addEventListeners () {
     const asciiTable = document.getElementById('ascii-table');
 
@@ -220,3 +214,31 @@ function addEventListeners () {
         });
     });
 }
+
+buttons[0].addEventListener('click', () => {
+    console.log("copy")
+    let rows = asciiTable.rows;
+    let tableText = '';
+
+    for (let i = 0; i < rows.length; i++) {
+        let cells = rows[i].cells;
+        for (let j = 0; j < cells.length; j++) {
+            tableText += (cells[j].innerText == '' ? ' ' : cells[j].innerText) + ' ';
+        }
+        tableText += '\n';
+    }
+    // Create a temporary textarea element
+    let tempTextArea = document.createElement('textarea');
+    tempTextArea.value = tableText;
+    document.body.appendChild(tempTextArea);
+
+    // Select the text and copy to clipboard
+    tempTextArea.select();
+    document.execCommand('copy');
+
+    // Remove the temporary textarea element
+    document.body.removeChild(tempTextArea);
+
+    alert('Table copied to clipboard!');
+
+})

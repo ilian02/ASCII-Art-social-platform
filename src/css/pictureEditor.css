@@ -13,7 +13,7 @@ body {
 }
 
 #symbol-table {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 #table-container table {
@@ -33,8 +33,6 @@ body {
 #table-container table > tr > td {
     border: 1px solid rgb(185, 185, 185);
 }
-
-
 
 #vertical-add-line {
     margin-bottom: 30px;
@@ -64,3 +62,18 @@ body {
 #horizontal-add-line tr > td {
     border: 1px solid rgb(185, 185, 185);
 } 
+
+#buttons-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#buttons {
+    margin-right: 30px;
+}
+
+#buttons tr td{
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid rgb(185, 185, 185);
+}
