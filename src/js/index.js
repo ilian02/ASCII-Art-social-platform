@@ -5,8 +5,9 @@ const editor_button = document.getElementById("picture_editor")
 editor_button.addEventListener('click', () => {
     const pic_id = 'new_picture1'
 
-    const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
-    console.log(url)
+    //const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
+
+    const url = 'pictureEditor.html'
     
     window.location = url;
 })

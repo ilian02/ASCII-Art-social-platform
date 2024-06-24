@@ -243,19 +243,23 @@ buttons[0].addEventListener('click', () => {
 
 })
 
+function getContentAsString() {         // ---------------------------- add it here ---------------------------
+    return "content of art";
+}
+
 
 pic_id = null
 
 // SENDING POST REQUEST TO SAVE ART IN DB
 document.addEventListener('DOMContentLoaded', () => {
-    const createButton = document.getElementById('create-button');
+    const saveButton = document.getElementById('create-button');
 
-    createButton.addEventListener('click', () => {
+    saveButton.addEventListener('click', () => {
 
         picData = {}
         picData['width'] = width
         picData['height'] = height
-        picData['content'] =  'this is ascii content' // FIX
+        picData['content'] =  getContentAsString()
 
         if (pic_id == null) {
             fetch('src/php/pictureEditor.php', {
@@ -265,16 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(picData),
             }).then((res) => {
-                if (!res.ok) {
-                    throw res.json().then(err => {throw err});
-                }
-                console.log(res.status)
                 return res.json()
             }).then(data => {
-                if (data.status === "success") {
-                    console.log('saved ' + data.message)
-                    pic_id = data.pic_id
-                    console.log(pic_id)
+                if (data['status'] == "success") {
+                    pic_id = data['pic_id']
                 } else if (data.status === "unsuccessful") {
                     console.log(data.message)
                 } else {
@@ -286,6 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     
         } else {
+            console.log('udpating')
+            picData['pic_id'] = pic_id
             fetch('src/php/pictureEditor.php', {
                 method: 'UPDATE',
                 headers: {
@@ -293,20 +293,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(picData),
             }).then((res) => {
-                if (!res.ok) {
-                    throw res.json().then(err => {throw err});
-                }
-                console.log(res.status)
                 return res.json()
             }).then(data => {
-                if (data.status === "success") {
-                    console.log('updated ' + data.message)
-                    pic_id = data.pic_id
-                    console.log(pic_id)
-                } else if (data.status === "unsuccessful") {
-                    console.log(data.message)
+                console.log(data)
+                if (data['status'] == 'success') {
+                    console.log('updated ' + data['message'])
+                } else if (data['status'] == "unsuccessful") {
+                    console.log(data['message'])
                 } else {
-                    console.log(data.message)
+                    console.log(data['message'])
                 }
                 
             }).catch((err) => {

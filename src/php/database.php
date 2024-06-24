@@ -49,23 +49,20 @@ class DB {
         return $new_pick_id;
     }
 
-    /*
-    public function updateNewPictureById($picId, $content, $width, $height) {
-        $stmt = $this->connection->prepare("INSERT pictures content = ?, width = ?, height = ? WHERE id = ?");
-        $stmt->bind_param("siii", $content, $width, $height, $picId);
-        $stmt->execute();
+    public function updatePictureById($picId, $content, $width, $height) {
+        $sql = "UPDATE pictures SET content = ?, width = ?, height = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$content, $width, $height, $picId]);
     }
-    */
 
-    /*
     public function getPictureById($picId) {
-        $stmt = $this->connection->prepare("SELECT content, width, height WHERE id = ?");
-        $stmt->bind_param("i", $picId);
+        $sql = "SELECT content, width, height, artist_id WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 
-        $stmt->bind_result($content, $width, $height);
+        $picture = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+        return $picture;
     }
-    */
 
     public function getConnection() {
         return $this->connection;
