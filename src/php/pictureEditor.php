@@ -7,18 +7,17 @@
 
     header('Content-Type: application/json');
 
-    // $db = new DB()
+    $db = new DB();
 
-    /*
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pic_id = (isset($_GET['pic_id'])) ? $_GET['pic_id'] : ''; 
         if ($pic_id) {  
-            $pic_data = $db->getPictureById($pic_id)
+            // $pic_data = $db->getPictureById($pic_id);
             echo json_encode(array('status' => 'success', 'message' => $pic_id, 'pic_data' => $pic_data));
         } else {
             echo json_encode(array('status' => 'success', 'message' => 'nice'));
         }
-    } else */if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $pictureData = json_decode(file_get_contents("php://input"), true);
 
@@ -26,9 +25,11 @@
         $height = $pictureData['height'];
         $content = $pictureData['content'];
 
-        $user_id = $db->getUserIdByUsername($_SESSION['username']);
-        //$new_pic_id = $db->createNewPicture($user_id, $content, $width, $height);
-        echo json_encode(array('status' => 'success', 'message' => $user_id));
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anon';
+
+        $user_id = $db->getUserIdByUsername($username);
+        $new_pic_id = $db->createNewPicture($user_id, $content, $width, $height);
+        echo json_encode(array('status' => 'success', 'message' => $new_pic_id));
         
     }/* else if ($_SERVER['REQUEST_METHOD'] === 'UPDATE') {
         
