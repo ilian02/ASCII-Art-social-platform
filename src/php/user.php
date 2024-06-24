@@ -27,5 +27,6 @@
         public function getUserId() {
             return $this->userId;
         }
+        
     }
 ?>

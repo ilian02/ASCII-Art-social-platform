@@ -242,3 +242,76 @@ buttons[0].addEventListener('click', () => {
     alert('Table copied to clipboard!');
 
 })
+
+
+pic_id = null
+
+// SENDING POST REQUEST TO SAVE ART IN DB
+document.addEventListener('DOMContentLoaded', () => {
+    const createButton = document.getElementById('create-button');
+
+    createButton.addEventListener('click', () => {
+
+        picData = {}
+        picData['width'] = width
+        picData['height'] = height
+        picData['content'] =  'this is ascii content' // FIX
+
+        if (pic_id == null) {
+            fetch('src/php/pictureEditor.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(picData),
+            }).then((res) => {
+                if (!res.ok) {
+                    throw res.json().then(err => {throw err});
+                }
+                console.log(res.status)
+                return res.json()
+            }).then(data => {
+                if (data.status === "success") {
+                    console.log('saved ' + data.message)
+                    pic_id = data.pic_id
+                    console.log(pic_id)
+                } else if (data.status === "unsuccessful") {
+                    console.log(data.message)
+                } else {
+                    console.log(data.message)
+                }
+                
+            }).catch((err) => {
+                // console.error('Error: ', err)
+            });
+    
+        } else {
+            fetch('src/php/pictureEditor.php', {
+                method: 'UPDATE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(picData),
+            }).then((res) => {
+                if (!res.ok) {
+                    throw res.json().then(err => {throw err});
+                }
+                console.log(res.status)
+                return res.json()
+            }).then(data => {
+                if (data.status === "success") {
+                    console.log('updated ' + data.message)
+                    pic_id = data.pic_id
+                    console.log(pic_id)
+                } else if (data.status === "unsuccessful") {
+                    console.log(data.message)
+                } else {
+                    console.log(data.message)
+                }
+                
+            }).catch((err) => {
+                // console.error('Error: ', err)
+            });
+        }
+    })
+});

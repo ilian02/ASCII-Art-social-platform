@@ -19,6 +19,7 @@
 
         if ($errors) {
             echo json_encode(array('status' => 'unsuccessful', 'message' => 'Проблем с данните', 'errors' => $errors));
+            return;
         } else {
             try {
                 $db = new DB();
@@ -31,7 +32,6 @@
                 if ($stmt->rowCount() > 0) {
                     $errors[] = "Потребителското име или имейл вече съществуват";
                     echo json_encode(array('status' => 'unsuccessful', 'message' => 'There were errors with the input', 'errors' => $errors));
-
                 } else {
 
                     $sql = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
@@ -46,6 +46,7 @@
                     $stmt->execute([$userData['username']]);
                     $user_id = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
                     echo json_encode(array('status' => 'success', 'message' => 'Акаунта е създаден', 'user_id' => $user_id));
+                    return;
                 }
     
             }catch(PDOException $err) {

@@ -15,7 +15,6 @@ CREATE TABLE pictures(
     height INT(8) DEFAULT 30,
     artist_id INT(11) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIME,
-    last_edited DATETIME NOT NULL DEFAULT CURRENT_TIME,
     PRIMARY KEY (id),
     FOREIGN KEY (artist_id) REFERENCES users (id) ON DELETE CASCADE
 )

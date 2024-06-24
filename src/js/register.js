@@ -5,14 +5,14 @@ registerForm.appendChild(errorBox)
 registerForm.addEventListener('submit', (event) => {
     event.preventDefault()
 
+    console.log('clicked')
+
     const inputs = Array.from(document.querySelectorAll('label input'))
     const userData = {};
 
     inputs.forEach(input => {
         userData[input.name] = input.value
     })
-
-
 
     fetch('src/php/register.php', {
         method: 'POST',
@@ -26,10 +26,12 @@ registerForm.addEventListener('submit', (event) => {
         }
         return res.json()
     }).then(data => {
+        console.log(data.status)
         if (data.status === "success") {
+            console.log('registered')
             location = 'index.html';
         } else if (data.status === "unsuccessful") {
-            // ADD ERROR MESSAGE ON SCREEN
+            console.log('nuhuh')
             errorBox.innerHTML = ''
 
             let errors = data.errors[0]
@@ -39,8 +41,6 @@ registerForm.addEventListener('submit', (event) => {
                 errMessage.innerText = error
                 errorBox.append(errMessage)
             })
-            
-            console.log(message.innerText)
         } else {
             console.log('Защо сме тук' + data.message)
         }
