@@ -213,7 +213,7 @@ buttons[1].addEventListener('click', () => {
     picData = {}
     picData['width'] = width
     picData['height'] = height
-    picData['content'] =  cells_data.flat().join('')()
+    picData['content'] =  cells_data.flat().join('')
 
     //sending post request to the server to save the picture
     if (pic_id == null) {
