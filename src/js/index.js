@@ -1,5 +1,12 @@
 const usernameField = document.getElementById("username-field")
-const editor_button = document.getElementById("picture_editor")
+const editor_button = document.getElementById("picture-editor")
+const logout = document.getElementById('logout-button')
+
+
+logout.addEventListener('click', () => {
+    const url = 'logout.html'
+    window.location = url;
+})
 
 
 editor_button.addEventListener('click', () => {

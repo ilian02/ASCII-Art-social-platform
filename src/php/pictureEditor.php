@@ -12,8 +12,8 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-        if (!isset($_SESSION)) {
-            echo json_encode(array('status' => 'unsuccessful', 'message' => "user is not logged in", 'error' => 'user not logged in'));
+        if (!isset($_SESSION) || !isset($_SESSION['username'])) {
+            echo json_encode(array('status' => 'unsuccessful', 'message' => "user is not logged in", 'error' => 'user not logged in', 'logged' => false));
             return;
         }
     

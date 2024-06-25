@@ -29,6 +29,37 @@ const symbols = [
     ["◍", "◊", "◁", "◀", "▷", "▸", "◂", "▪", "▫", "◻", "◼", "◽", "◾", "◿", "*", "♪", "♫", "+", "-", "=", "<", ">", "∕", "∖", "∗", "∘", "∙", "∭", "★", "☆", "☔", "☕"]
 ];
 
+
+fetch('src/php/pictureEditor.php', {
+    method: 'GET',
+}).then((res) => {
+    return res.json()
+}).then(data => {
+    if (data.status === "success") {
+        if (data.logged == true) {
+            console.log('User is logged in')
+        } else {
+            console.log("error")
+        }
+    } else if (data.status === "unsuccessful") {
+        if (data['logged'] == false) {
+            location = 'login.html'
+        }
+        
+    } else {
+        console.log('how are we here')
+    }
+    
+}).catch((err) => {
+    // console.error('Error: ', err)
+});
+
+
+
+
+
+
+
 function resize_table(direction, add) {
     if (direction == 0) {
         //console.log("up")
