@@ -258,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     saveButton.addEventListener('click', () => {
         console.log('save')
+        console.log(saveButton.innerText)
         picData = {}
         picData['width'] = width
         picData['height'] = height
