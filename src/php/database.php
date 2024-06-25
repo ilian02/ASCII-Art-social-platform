@@ -126,6 +126,14 @@ class DB {
         return $frames;
     }
 
+    public function getAnimationsByUserId($userId) {
+        $sql = "SELECT id, width, height, artist_id, title FROM animations WHERE artist_id = ? ORDER BY created_at DESC";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$userId]);
+
+        $animations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $animations;
+    }
 
     public function getConnection() {
         return $this->connection;

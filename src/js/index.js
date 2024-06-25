@@ -6,7 +6,7 @@ const animation_container = document.getElementById('animation_container')
 const sign_button = document.getElementById('sign-button')
 
 let posts
-let animations
+let animations = []
 let username = null
 let current_frame = 0
 
@@ -34,12 +34,14 @@ function load_username() {
         }
         return res.json()
     }).then(data => {
+        console.log(data.animations)
         if (data.status === "success") {
             if (data.isLogged == true) {
                 username = data.username
                 usernameField.innerText = username
-
+                
                 posts = data.pictures
+                animations = data.animations
 
                 logout.style.display = 'block'
                 sign_button.style.display = 'none'
@@ -66,22 +68,16 @@ function load_username() {
 
 load_username()
 
-
-
-
-
 function present_pictures() {
-    //console.log(posts)
     posts.forEach(picture => {
         present_picture(picture)
     })
 }
 
 function present_animations() {
-    //console.log(posts)
     animation_container.innerHTML = ''
-    animations.forEach(picture => {
-        present_picture(picture)
+    animations.forEach(animation => {
+        present_animation(animation)
     })
 }
 
@@ -132,11 +128,53 @@ function present_picture(picture) {
     }
 
     picture_container.appendChild(table)
+    posts_container.appendChild(picture_container)
+}
+
+
+function present_animation(picture) {
+
+    let picture_container = document.createElement('div')
+    picture_container.id = 'picture-container'
+
+    let pic_header = document.createElement('h2')
+    pic_header.addEventListener('click', () => {
+        console.log(picture['id'])
+        const url = `pictureEditor.html?pic_id=${encodeURIComponent(picture['id'])}`
+        window.location = url
+    })
+
+    //title.innerText = picture['title']
+    pic_header.innerText = 'title' + ' by ' + username
+    pic_header.id = 'pic-header'
+    picture_container.appendChild(pic_header)
+
+    
+
+    let table = document.createElement('table')
+    table.id = 'picture'
+    let index = 0
+    for (let i = 0; i < picture["height"]; i++) {
+        let table_row = document.createElement('tr')
+    
+        for (let j = 0; j < picture["width"]; j++) {
+            let table_cell = document.createElement('td')
+            table_cell.innerText = picture['frames'][current_frame]['content'][index]
+    
+            index++
+            table_cell.classList.add('cell')
+            table_row.appendChild(table_cell)
+    
+        }
+        table.appendChild(table_row)
+    }
+
+    picture_container.appendChild(table)
 
     
 
 
-    posts_container.appendChild(picture_container)
+    animation_container.appendChild(picture_container)
 }
 
 function delay(ms) {
