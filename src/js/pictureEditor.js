@@ -208,15 +208,14 @@ buttons[0].addEventListener('click', () => {
 })
 
 
-
-// SENDING POST REQUEST TO SAVE ART IN DB
+//saving picture to the DB
 buttons[1].addEventListener('click', () => {
-    console.log('save')
     picData = {}
     picData['width'] = width
     picData['height'] = height
     picData['content'] =  cells_data.flat().join('')()
 
+    //sending post request to the server to save the picture
     if (pic_id == null) {
         fetch('src/php/pictureEditor.php', {
             method: 'POST',
@@ -239,7 +238,8 @@ buttons[1].addEventListener('click', () => {
             // console.error('Error: ', err)
         });
 
-    } else {
+    } 
+    else {
         console.log('udpating')
         picData['pic_id'] = pic_id
         fetch('src/php/pictureEditor.php', {
@@ -268,9 +268,8 @@ buttons[1].addEventListener('click', () => {
     alert('Picture saved!');
 })
 
+//clears drawing table
 buttons[2].addEventListener('click', () => {
-
-    console.log('clear')
     const asciiTable = document.getElementById('ascii-table')
 
     for (let i = 0; i < height; i++) {
@@ -283,9 +282,9 @@ buttons[2].addEventListener('click', () => {
 
 })
 
+//resizes table on press of arrow key
 function resize_table(direction, add) {
     if (direction == 0) {
-        //console.log("up")
         if (add) {
             let table_row = document.createElement('tr')
             height += 1;
