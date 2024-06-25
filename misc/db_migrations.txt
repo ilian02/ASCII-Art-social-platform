@@ -33,6 +33,7 @@ CREATE TABLE animations (
 CREATE TABLE frames (
     id INT(11) NOT NULL AUTO_INCREMENT,
     animation_id INT NOT NULL,
+    order INT NOT NULL,
     content varchar(2500),
     PRIMARY KEY (id),
     FOREIGN KEY (animation_id) REFERENCES animations (id) ON DELETE CASCADE

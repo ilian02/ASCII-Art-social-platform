@@ -34,37 +34,27 @@ const symbols = [
 ];
 
 
-console.log(urlParams.get('pic_id'))
 pic_id = urlParams.get('pic_id')
 
 if (pic_id) {          // if we need to load picture
-    console.log('here')
     fetch(`src/php/pictureEditor.php?pic_id=${pic_id}`, {
         method: 'GET',
     }).then((res) => {
         return res.json()
     }).then(data => {
-        console.log(data)
         if (data.status === "success") {
             if (data.logged == true) {
-                console.log('User is logged in')
+                //console.log(data)
                 
-                
-                // pic_to_load = data.pic_data             // ---------------------------- LOAD THIS INTO THE CELL --------------------------------
-                pic_to_load = "┼┼┼┼┼  ▄▄▄▄                                                                                                                        ▆▆ ▆ ▆ ▆ ▆  ▆                         ▆▆                                      ▆                ▆                     ▆                  ▆                    ▆                   ▆                   ▆                    ▆                  ▆                    ▆                   ▆             ▆▆▆    ▆                   ▆           ▆       ▆                    ▆         ▆        ▆                    ▆      ▆ ▆         ▆                     ▆▆   ▆           ▆▆                      ▆   ▆▆         ▆▆                        ▆▆   ▆▆ ▆▆▆ ▆▆                           ▆                                                                                                                                                                                                                                                                                                                "
-                
-                
-                width = data.width
-                height = data.height
-                //console.log(pic_to_load)
+                pic_to_load = data.pic_data.content            // ---------------------------- LOAD THIS INTO THE CELL --------------------------------
+          
+                width = data.pic_data.width
+                height = data.pic_data.height
+                console.log(pic_to_load)
 
-                let index = 0
-                for (let i = 0; i < height; i++) {
-                    for (let j = 0; j < width; j++) {
-                        cells_data[i][j] = pic_to_load[index]
-                        index++
-                    }
-                }
+                fill_table(pic_to_load)
+
+
                 load_picture()
 
             } else {
@@ -107,6 +97,20 @@ if (pic_id) {          // if we need to load picture
         // console.error('Error: ', err)
     });
     
+}
+
+
+function fill_table(content) {
+    let index = 0
+
+    for (let i = 0; i < height; i++) {
+        cells_data[i] = []
+        for (let j = 0; j < width; j++) {
+            cells_data[i][j] = content[index]
+            index++   
+        }
+    }
+    console.log('ended')
 }
 
 
@@ -408,6 +412,7 @@ buttons[2].addEventListener('click', () => {
 })
 
 function load_picture() {
+
     asciiTable.innerHTML = ''
     for (let i = 0; i < height; i++) {
         let table_row = document.createElement('tr')
