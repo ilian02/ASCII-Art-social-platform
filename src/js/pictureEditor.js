@@ -16,16 +16,6 @@ const buttons = [
     document.getElementById('clear-table')
 ]
 
-let width = 40
-let height = 25
-
-let symbols_width = 32
-let symbols_height = 4
-
-const urlParams = new URLSearchParams(window.location.search);
-
-let cells_data = [[]]
-
 const symbols = [
     ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", " ", "{", "|", "}", "~"],
     ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼", "━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋", "═", "║", "╔", "╗", "╚", "╝", "╠", "╡", "╢", "█"],
@@ -33,8 +23,15 @@ const symbols = [
     ["◍", "◊", "◁", "◀", "▷", "▸", "◂", "▪", "▫", "◻", "◼", "◽", "◾", "◿", "*", "♪", "♫", "+", "-", "=", "<", ">", "∕", "∖", "∗", "∘", "∙", "∭", "★", "☆", "☔", "☕"]
 ];
 
+let width = 40
+let height = 25
+let cells_data = [[]]
 
-pic_id = urlParams.get('pic_id')
+let symbols_width = 32
+let symbols_height = 4
+
+const urlParams = new URLSearchParams(window.location.search);
+let pic_id = urlParams.get('pic_id')
 
 if (pic_id) {          // if we need to load picture
     fetch(`src/php/pictureEditor.php?pic_id=${pic_id}`, {
@@ -44,17 +41,11 @@ if (pic_id) {          // if we need to load picture
     }).then(data => {
         if (data.status === "success") {
             if (data.logged == true) {
-                //console.log(data)
-                
-                pic_to_load = data.pic_data.content            // ---------------------------- LOAD THIS INTO THE CELL --------------------------------
-          
+                pic_to_load = data.pic_data.content
                 width = data.pic_data.width
                 height = data.pic_data.height
-                console.log(pic_to_load)
 
                 fill_table(pic_to_load)
-
-
                 load_picture()
                 addEventListeners()
 
@@ -73,7 +64,8 @@ if (pic_id) {          // if we need to load picture
     }).catch((err) => {
         // console.error('Error: ', err)
     });
-} else {
+} 
+else {
     fetch('src/php/pictureEditor.php', {
         method: 'GET',
     }).then((res) => {
@@ -100,24 +92,199 @@ if (pic_id) {          // if we need to load picture
     
 }
 
+//create the empty table
+for (let i = 0; i < height; i++) {
+    let table_row = document.createElement('tr')
+    cells_data[i] = []
 
-function fill_table(content) {
-    let index = 0
+    for (let j = 0; j < width; j++) {
+        let table_cell = document.createElement('td')
+        cells_data[i][j] = ' '
+        table_cell.innerText = ' '
+        table_cell.classList.add('cell')
+        table_row.appendChild(table_cell)
 
-    for (let i = 0; i < height; i++) {
-        cells_data[i] = []
-        for (let j = 0; j < width; j++) {
-            cells_data[i][j] = content[index]
-            index++   
-        }
     }
-    console.log('ended')
+    asciiTable.appendChild(table_row)
 }
 
+//create table with avalibale symbols
+for (let i = 0; i < symbols_height; i++) {
+    let table_row = document.createElement('tr')
 
+    for (let j = 0; j < symbols_width; j++) {
+        let table_cell = document.createElement('td')
+        table_cell.innerText = symbols[i][j]
+        table_cell.classList.add('cell')
+        table_row.appendChild(table_cell)
+    }
+    asciiSymbols.appendChild(table_row)
+}
+
+let clickedCell
+let clickedSymbol
+
+//adding event listeners to each cell after loading
+document.addEventListener('DOMContentLoaded', () => {
+    addEventListeners()
+});
+
+//add click event listener to each cell in the symbol table
+document.addEventListener('DOMContentLoaded', () => {
+    const symbolTable = document.getElementById('symbol-table');
+    
+    symbolTable.querySelectorAll('td').forEach(cell => {
+        cell.addEventListener('click', event => {
+            clickedSymbol = event.target;
+        });
+    });
+});
+
+//adding event listneres on click for each resize_arrow
+for (let i = 0; i < 4; i++) {
+    for(let j = 0; j <= 1; j++) {
+        arrows[i][j].addEventListener('click', () => {
+            console.log('Clicked on cell: ', arrows[i][j].innerText);
+            resize_table(i, j)
+        });
+    }
+}
+
+//adding mousedown event listeners for each cell of the drawing table
+function addEventListeners () {
+    const asciiTable = document.getElementById('ascii-table');
+
+    let isMouseDown = false;
+
+    function handleAction(event) {
+        const cell = event.target;
+        //console.log('ASCII Table cell clicked:', cell.innerText);
+            if (clickedSymbol) {
+                cell.innerText = clickedSymbol.innerText
+                cells_data[cell.parentElement.rowIndex][cell.cellIndex] = clickedSymbol.innerText
+            }
+    }
+
+    asciiTable.querySelectorAll('td').forEach(cell => {
+        cell.addEventListener('mousedown', event => {
+            isMouseDown = true
+            handleAction(event)
+        });
+
+        cell.addEventListener('mouseover', event => {
+            if (isMouseDown) {
+                handleAction(event)
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+    });
+}
+
+//event listener for copy button
+buttons[0].addEventListener('click', () => {
+    let rows = asciiTable.rows;
+    let tableText = '';
+
+    for (let i = 0; i < rows.length; i++) {
+        let cells = rows[i].cells;
+        for (let j = 0; j < cells.length; j++) {
+            tableText += (cells[j].innerText == '' ? ' ' : cells[j].innerText) + ' ';
+        }
+        tableText += '\n';
+    }
+    let tempTextArea = document.createElement('textarea');
+    tempTextArea.value = tableText;
+    document.body.appendChild(tempTextArea);
+
+    tempTextArea.select();
+    document.execCommand('copy') //deprecated but its the only way to copy I know
+    document.body.removeChild(tempTextArea);
+
+    alert('Table copied to clipboard!');
+
+})
+
+
+//saving picture to the DB
+buttons[1].addEventListener('click', () => {
+    picData = {}
+    picData['width'] = width
+    picData['height'] = height
+    picData['content'] =  cells_data.flat().join('')()
+
+    //sending post request to the server to save the picture
+    if (pic_id == null) {
+        fetch('src/php/pictureEditor.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(picData),
+        }).then((res) => {
+            return res.json()
+        }).then(data => {
+            if (data['status'] == "success") {
+                pic_id = data['pic_id']
+            } else if (data.status === "unsuccessful") {
+                console.log(data.message)
+            } else {
+                console.log(data.message)
+            }
+            
+        }).catch((err) => {
+            // console.error('Error: ', err)
+        });
+
+    } 
+    else {
+        console.log('udpating')
+        picData['pic_id'] = pic_id
+        fetch('src/php/pictureEditor.php', {
+            method: 'UPDATE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(picData),
+        }).then((res) => {
+            return res.json()
+        }).then(data => {
+            console.log(data)
+            if (data['status'] == 'success') {
+                console.log('updated ' + data['message'])
+            } else if (data['status'] == "unsuccessful") {
+                console.log(data['message'])
+            } else {
+                console.log(data['message'])
+            }
+            
+        }).catch((err) => {
+            // console.error('Error: ', err)
+        });
+    }
+
+    alert('Picture saved!');
+})
+
+//clears drawing table
+buttons[2].addEventListener('click', () => {
+    const asciiTable = document.getElementById('ascii-table')
+
+    for (let i = 0; i < height; i++) {
+        for (let  j= 0; j < width; j++) {
+            asciiTable.rows[i].cells[j].innerText = ' '
+            cells_data[i][j] = ' '
+        }
+    }
+
+
+})
+
+//resizes table on press of arrow key
 function resize_table(direction, add) {
     if (direction == 0) {
-        //console.log("up")
         if (add) {
             let table_row = document.createElement('tr')
             height += 1;
@@ -211,207 +378,6 @@ function resize_table(direction, add) {
     addEventListeners()
 }
 
-for (let i = 0; i < height; i++) {
-    let table_row = document.createElement('tr')
-    cells_data[i] = []
-
-    for (let j = 0; j < width; j++) {
-        let table_cell = document.createElement('td')
-        cells_data[i][j] = ' '
-        table_cell.innerText = ' '
-        table_cell.classList.add('cell')
-        table_row.appendChild(table_cell)
-
-    }
-    asciiTable.appendChild(table_row)
-}
-
-for (let i = 0; i < symbols_height; i++) {
-    let table_row = document.createElement('tr')
-
-    for (let j = 0; j < symbols_width; j++) {
-        let table_cell = document.createElement('td')
-        table_cell.innerText = symbols[i][j]
-        table_cell.classList.add('cell')
-        table_row.appendChild(table_cell)
-    }
-    asciiSymbols.appendChild(table_row)
-}
-
-let clickedCell
-let clickedSymbol
-
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    addEventListeners()
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const symbolTable = document.getElementById('symbol-table');
-    // Add click event listener to each cell in the Symbol table
-    symbolTable.querySelectorAll('td').forEach(cell => {
-        cell.addEventListener('click', event => {
-            clickedSymbol = event.target;
-            //console.log('Symbol Table cell clicked:', clickedSymbol.innerText);
-            // Perform additional actions here, e.g., change cell content or style
-        });
-    });
-});
-
-
-for (let i = 0; i < 4; i++) {
-    for(let j = 0; j <= 1; j++) {
-        arrows[i][j].addEventListener('click', () => {
-            console.log('Clicked on cell: ', arrows[i][j].innerText);
-            resize_table(i, j)
-        });
-    }
-}
-
-function addEventListeners () {
-    const asciiTable = document.getElementById('ascii-table');
-
-    let isMouseDown = false;
-
-    function handleAction(event) {
-        const cell = event.target;
-        //console.log('ASCII Table cell clicked:', cell.innerText);
-            if (clickedSymbol) {
-                cell.innerText = clickedSymbol.innerText
-                cells_data[cell.parentElement.rowIndex][cell.cellIndex] = clickedSymbol.innerText
-            }
-    }
-
-    asciiTable.querySelectorAll('td').forEach(cell => {
-        cell.addEventListener('mousedown', event => {
-            isMouseDown = true
-            handleAction(event)
-        });
-
-        cell.addEventListener('mouseover', event => {
-            if (isMouseDown) {
-                handleAction(event)
-            }
-        });
-
-        document.addEventListener('mouseup', () => {
-            isMouseDown = false;
-        });
-    });
-}
-
-buttons[0].addEventListener('click', () => {
-    console.log("copy")
-
-    let rows = asciiTable.rows;
-    let tableText = '';
-
-    for (let i = 0; i < rows.length; i++) {
-        let cells = rows[i].cells;
-        for (let j = 0; j < cells.length; j++) {
-            tableText += (cells[j].innerText == '' ? ' ' : cells[j].innerText) + ' ';
-        }
-        tableText += '\n';
-    }
-    // Create a temporary textarea element
-    let tempTextArea = document.createElement('textarea');
-    tempTextArea.value = tableText;
-    document.body.appendChild(tempTextArea);
-
-    // Select the text and copy to clipboard
-    tempTextArea.select();
-    document.execCommand('copy');
-
-    // Remove the temporary textarea element
-    document.body.removeChild(tempTextArea);
-
-    alert('Table copied to clipboard!');
-
-})
-
-function getContentAsString() {
-    return (cells_data.flat().join(''))
-}
-
-
-pic_id = null
-
-// SENDING POST REQUEST TO SAVE ART IN DB
-buttons[1].addEventListener('click', () => {
-    console.log('save')
-    picData = {}
-    picData['width'] = width
-    picData['height'] = height
-    picData['content'] =  getContentAsString()
-
-    if (pic_id == null) {
-        fetch('src/php/pictureEditor.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(picData),
-        }).then((res) => {
-            return res.json()
-        }).then(data => {
-            if (data['status'] == "success") {
-                pic_id = data['pic_id']
-            } else if (data.status === "unsuccessful") {
-                console.log(data.message)
-            } else {
-                console.log(data.message)
-            }
-            
-        }).catch((err) => {
-            // console.error('Error: ', err)
-        });
-
-    } else {
-        console.log('udpating')
-        picData['pic_id'] = pic_id
-        fetch('src/php/pictureEditor.php', {
-            method: 'UPDATE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(picData),
-        }).then((res) => {
-            return res.json()
-        }).then(data => {
-            console.log(data)
-            if (data['status'] == 'success') {
-                console.log('updated ' + data['message'])
-            } else if (data['status'] == "unsuccessful") {
-                console.log(data['message'])
-            } else {
-                console.log(data['message'])
-            }
-            
-        }).catch((err) => {
-            // console.error('Error: ', err)
-        });
-    }
-
-    alert('Picture saved!');
-})
-
-buttons[2].addEventListener('click', () => {
-
-    console.log('clear')
-    const asciiTable = document.getElementById('ascii-table')
-
-    for (let i = 0; i < height; i++) {
-        for (let  j= 0; j < width; j++) {
-            asciiTable.rows[i].cells[j].innerText = ' '
-            cells_data[i][j] = ' '
-        }
-    }
-
-
-})
-
 function load_picture() {
 
     asciiTable.innerHTML = ''
@@ -428,4 +394,17 @@ function load_picture() {
         asciiTable.appendChild(table_row)
     }
 
+}
+
+function fill_table(content) {
+    let index = 0
+
+    for (let i = 0; i < height; i++) {
+        cells_data[i] = []
+        for (let j = 0; j < width; j++) {
+            cells_data[i][j] = content[index]
+            index++   
+        }
+    }
+    console.log('ended')
 }
