@@ -3,7 +3,7 @@ body {
     -moz-user-select: none; /* Disable selection for Firefox */
     -ms-user-select: none; /* Disable selection for IE/Edge */
     user-select: none; /* Disable selection for supported browsers */
-
+    font-family: Arial, sans-serif;
 }
 
 #ascii-screen {
@@ -77,4 +77,53 @@ body {
     font-size: 24px;
     text-align: center;
     border: 1px solid rgb(185, 185, 185);
+}
+
+.but-left {
+    background-color: rgb(252, 246, 189);
+    height: 35px;
+    padding: 10px;
+    border: 0px;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup {
+    display: none; /* Hide popup initially */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    position: relative;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #aaa;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
 }

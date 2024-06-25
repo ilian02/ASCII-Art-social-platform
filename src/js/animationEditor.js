@@ -150,6 +150,46 @@ buttons[1].addEventListener('click', () => {
     for (let i = 0; i < 5; i++) {
         animationData['content'].push(frames[i].flat().join(''))
     }
+    //////////////////////////////
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const popup = document.getElementById('popup');
+    const saveTitleBtn = document.getElementById('saveTitleBtn');
+    const titleInput = document.getElementById('titleInput');
+
+    popup.style.display = 'flex';
+
+
+    closePopupBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+
+
+    saveTitleBtn.addEventListener('click', () => {
+        animationData['title'] = titleInput.value;
+        console.log('Title:', animationData['title']);
+        save_to_db(animationData)
+        popup.style.display = 'none';
+    });
+    
+
+
+})
+
+buttons[2].addEventListener('click', () => {
+    console.log('clear')
+    const asciiTable = document.getElementById('ascii-table')
+
+    for (let i = 0; i < height; i++) {
+        for (let  j= 0; j < width; j++) {
+            asciiTable.rows[i].cells[j].innerText = ' '
+            frames[current_frame][i][j] = ' '
+        }
+    }
+
+
+})
+
+function save_to_db (animationData) {
 
     fetch('src/php/animationEditor.php', {
         method: 'POST',
@@ -174,49 +214,8 @@ buttons[1].addEventListener('click', () => {
     }).catch((err) => {
         // console.error('Error: ', err)
     })
+}
 
-    // } else {
-    //     console.log('udpating')
-    //     animationData['animation_id'] = animation_id
-    //     fetch('src/php/animationtureEditor.php', {
-    //         method: 'UPDATE',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(animationData),
-    //     }).then((res) => {
-    //         return res.json()
-    //     }).then(data => {
-    //         console.log(data)
-    //         if (data['status'] == 'success') {
-    //             console.log('updated ' + data['message'])
-    //         } else if (data['status'] == "unsuccessful") {
-    //             console.log(data['message'])
-    //         } else {
-    //             console.log(data['message'])
-    //         }
-            
-    //     }).catch((err) => {
-    //         // console.error('Error: ', err)
-    //     })
-    // }
-
-    alert('Animation saved!')
-})
-
-buttons[2].addEventListener('click', () => {
-    console.log('clear')
-    const asciiTable = document.getElementById('ascii-table')
-
-    for (let i = 0; i < height; i++) {
-        for (let  j= 0; j < width; j++) {
-            asciiTable.rows[i].cells[j].innerText = ' '
-            frames[current_frame][i][j] = ' '
-        }
-    }
-
-
-})
 
 function load_picture() {
     asciiTable.innerHTML = ''
