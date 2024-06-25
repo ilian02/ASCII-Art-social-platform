@@ -31,10 +31,11 @@ registerForm.addEventListener('submit', (event) => {
             console.log('registered')
             location = 'index.html'
         } else if (data.status === "unsuccessful") {
-            console.log('nuhuh')
+            console.log(data.message)
+            console.log(data.errors)
             errorBox.innerHTML = ''
 
-            let errors = data.errors[0]
+            let errors = data.errors
 
             errors.forEach(function(error) {
                 errMessage = document.createElement('p')

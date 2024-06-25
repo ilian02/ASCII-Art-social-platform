@@ -35,6 +35,7 @@ function load_username() {
             if (data.isLogged == true) {
                 username = data.username
                 usernameField.innerText = username
+
                 posts = data.pictures
 
                 logout.style.display = 'block'
@@ -62,6 +63,7 @@ function load_username() {
 load_username()
 
 function present_pictures() {
+    console.log(posts)
     posts.forEach(picture => {
         present_picture(picture)
     })

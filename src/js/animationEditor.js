@@ -352,7 +352,7 @@ function create_empty_array() {
 
 //             for (let i = 0; i < width; i++) {
 //                 let table_cell = document.createElement('td')
-//                 frames[current_frame][0][i] = ' '
+//                 frames[current_frame][height-1][i] = ' '
 //                 table_cell.innerText = ' '
 //                 table_cell.classList.add('cell')
 //                 table_row.appendChild(table_cell)

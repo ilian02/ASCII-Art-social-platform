@@ -15,9 +15,9 @@
             $errors[] = 'Not valid json format';
         }
 
-        $errors[] = validate_input($userData);
+        $errors = validate_input($userData);
 
-        if ($errors) {
+        if (count($errors) > 0) {
             echo json_encode(array('status' => 'unsuccessful', 'message' => 'Проблем с данните', 'errors' => $errors));
             return;
         } else {
@@ -66,27 +66,31 @@
         $errors = [];
 
         if ($userData['username'] == "") {
-            $errors[] = 'Полето потребителското име е празно';
+            array_push($errors,'Полето потребителското име е празно');
         }
 
         if (strlen($userData['username']) < 8) {
-            $errors[] = 'Полето потребителското име трябва да е поне 8 символа';
+            array_push($errors,'Полето потребителското име трябва да е поне 8 символа');
         }
         
         if ($userData['email'] == "") {
-            $errors[] = 'Полето имейл е празно';
+            array_push($errors,'Полето имейл е празно');
         }
 
         if ($userData['password'] == "") {
-            $errors[] = 'Полето парола е празно';
+            array_push($errors,'Полето парола е празно');
+        }
+
+        if (strlen($userData['password']) < 6) {
+            array_push($errors,'Полето парола е празно');
         }
 
         if ($userData['confirm_password'] == "") {
-            $errors[] = 'Полето потвърждаване на парола е празно';
+            array_push($errors, 'Полето потвърждаване на парола е празно');
         }
 
         if ($userData['password'] != $userData['confirm_password']) {
-            $errors[] = 'Паролите не съвпадат';
+            array_push($errors, 'Паролите не съвпадат');
         }
 
 

@@ -1,3 +1,14 @@
+
+/* Import the Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto';
+    margin: 0px;
+    background: rgb(123,241,168);
+    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
+}
+
 #picture-container {
     display: grid;
     place-items: center;
@@ -25,6 +36,7 @@
 #picture {
     border-collapse: collapse;
     border-color: rgb(185, 185, 185);
+    background-color: white;
 }
 
 #picture td {
@@ -40,4 +52,12 @@
 
 #pic-header {
     font-size: 30px;
+}
+
+h1 {
+    width: 700px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    text-align: center;
 }
