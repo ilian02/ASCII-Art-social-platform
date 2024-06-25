@@ -11,7 +11,6 @@
 
         $page_number = isset($_GET['page']) ? $_GET['page'] : 1;
 
-
         $posts = get_page($page_number);
 
         echo json_encode(array('status' => 'success', 'posts' => $posts, 'message' => $page_number));

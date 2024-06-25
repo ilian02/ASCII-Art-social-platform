@@ -4,9 +4,6 @@ let current_page = 1
 let current_posts
 load_galery()
 
-
-
-
 let current_frame = 0;
 
 async function display_loop () {
