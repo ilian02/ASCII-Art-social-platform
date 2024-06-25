@@ -56,7 +56,17 @@ if (pic_id) {          // if we need to load picture
                 
                 width = data.width
                 height = data.height
-                console.log(pic_to_load)
+                //console.log(pic_to_load)
+
+                let index = 0
+                for (let i = 0; i < height; i++) {
+                    for (let j = 0; j < width; j++) {
+                        cells_data[i][j] = pic_to_load[index]
+                        index++
+                    }
+                }
+                load_picture()
+
             } else {
                 console.log("error")
             }
@@ -396,3 +406,20 @@ buttons[2].addEventListener('click', () => {
 
 
 })
+
+function load_picture() {
+    asciiTable.innerHTML = ''
+    for (let i = 0; i < height; i++) {
+        let table_row = document.createElement('tr')
+    
+        for (let j = 0; j < width; j++) {
+            let table_cell = document.createElement('td')
+            table_cell.innerText = cells_data[i][j]
+            table_cell.classList.add('cell')
+            table_row.appendChild(table_cell)
+    
+        }
+        asciiTable.appendChild(table_row)
+    }
+
+}
