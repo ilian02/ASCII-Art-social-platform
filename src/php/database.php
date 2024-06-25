@@ -109,7 +109,7 @@ class DB {
     }
 
     public function getAnimations() {
-        $sql = "SELECT id, content, width, height, artist_id, title FROM pictures ORDER BY created_at DESC";
+        $sql = "SELECT id, width, height, artist_id, title FROM animations ORDER BY created_at DESC";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 

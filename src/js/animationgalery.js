@@ -2,8 +2,6 @@ const posts_container = document.getElementById('post_container')
 
 let current_page = 1
 let current_posts
-load_galery()
-
 let current_frame = 0;
 
 async function display_loop () {
@@ -18,18 +16,17 @@ async function display_loop () {
 
 //loads all pictures from the DB with GET request
 function load_galery() {
-    fetch(`src/php/pictureGalery.php?page=${current_page}`, {
+    fetch(`src/php/animationGalery.php?page=${current_page}`, {
         method: 'GET',
     }).then((res) => {
         return res.json()
     }).then(data => {
+        console.log(data)
         if (data.status === "success") {
             current_posts = data.posts
             display_loop()
-            console.log(current_posts)
         } else if (data.status === "unsuccessful") {
             console.log('status was unsucc')
-            
         } else {
             console.log('how are we here')
         }
@@ -56,7 +53,7 @@ function present_picture(picture) {
 
     //add title and username of creator
     let pic_header = document.createElement('h2')
-    pic_header.innerText = 'title' + ' by ' + picture['username'] 
+    pic_header.innerText = picture['title'] + ' by ' + picture['username'] 
     pic_header.id = 'pic-header'
     picture_container.appendChild(pic_header)
 
@@ -70,11 +67,12 @@ function present_picture(picture) {
     
         for (let j = 0; j < picture["width"]; j++) {
             let table_cell = document.createElement('td')
-            table_cell.innerText = picture["content"][current_frame][index]
+
+            table_cell.innerText = picture['frames'][current_frame]['content'][index]
+    
             index++
             table_cell.classList.add('cell')
             table_row.appendChild(table_cell)
-    
         }
         table.appendChild(table_row)
     }
@@ -93,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (current_page < 1) {
             current_page = 1
         }
-        console.log(current_page)
         posts_container.innerHTML = ''
         load_galery()
     })
@@ -102,6 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //button for next page
 document.addEventListener('DOMContentLoaded', () => {
+
+    load_galery()
+
     const next_button = document.getElementById('next')
     next_button.addEventListener('click', ()=>{
         current_page += 1

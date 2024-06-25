@@ -25,8 +25,6 @@ function get_page($page_number) {
     $start_index = ($page_number - 1) * PAGE_SIZE;
     $posts_for_page = array_slice($posts, $start_index, PAGE_SIZE);
 
-    
-
     $to_send = [];
 
     foreach($posts_for_page as $post) {
