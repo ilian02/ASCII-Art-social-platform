@@ -5,20 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/animationEditor.css">
 
-    <title>ASCII Editor</title>
+    <title>Animation Editor</title>
 </head>
 <body>
     
-    <h1>ASCII Editor</h1>
+    <h1>Animation Editor</h1>
 
-    <div id="table-container">
-        <table id="ascii-table">
+    <table id="vertical-add-line"class="add-lines">
+        <tr><td id="add-up">▲</td></tr>
+        <tr><td id="remove-up">▼</td></tr>
+    </table>
+
+    <div id="ascii-screen">
+        
+
+        <table id="horizontal-add-line"class="add-lines">
+            <tr>
+                <td id="add-left">◀</td>
+                <td id="remove-left">▶</td>
+            </tr>
         </table>
+
+        <div id="table-container">
+            <table id="ascii-table">
+            </table>
+        </div>
+
+        <table id="horizontal-add-line"class="add-lines">
+            <tr>
+                <td id="remove-right">◀</td>
+                <td id="add-right">▶</td>
+            </tr>
+        </table>
+
+        
     </div>
 
-    <div id="symbol-container">
-        <table id="symbol-table">
+    <table id="vertical-add-line" class="add-lines">
+        <tr><td id="remove-down">▲</td></tr>
+        <tr><td id="add-down">▼</td></tr>
+    </table>
+
+    <div id="buttons-screen">
+        
+        <table id="buttons">
+            <tr><td id="copy-to-clipboard">Copy</td></tr>
+            <tr><td id="save-to-db-button">Save</td></tr>
+            <tr><td id="clear-table">Clear</td></tr>
         </table>
+      
+
+        <div id="table-container">
+            <table id="symbol-table">
+            </table>
+        </div>
+
+        <table id="buttons">
+            <tr><td id="frame-counter"></td></tr>
+            <tr><td id="prev-frame">Prev Frame</td></tr>
+            <tr><td id="next-frame">Next Frame</td></tr>
+        </table>
+
     </div>
 
     <script src="src/js/animationEditor.js"></script>
