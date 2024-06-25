@@ -58,10 +58,6 @@ fetch('src/php/pictureEditor.php', {
 
 
 
-
-
-
-
 function resize_table(direction, add) {
     if (direction == 0) {
         //console.log("up")
@@ -349,9 +345,16 @@ buttons[1].addEventListener('click', () => {
     alert('Picture saved!');
 })
 
-buttons[1].addEventListener('click', () => {
+buttons[2].addEventListener('click', () => {
+    console.log('clear')
+    const asciiTable = document.getElementById('ascii-table')
 
-
+    for (let i = 0; i < height; i++) {
+        for (let  j= 0; j < width; j++) {
+            asciiTable.rows[i].cells[j].innerText = ' '
+            cells_data[i][j] = ' '
+        }
+    }
 
 
 })
