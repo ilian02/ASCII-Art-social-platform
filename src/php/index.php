@@ -18,8 +18,7 @@
             return;
         }
 
-
     } else {
-        return ['status' => 'error'];
+        return ['status' => 'error', 'message' => 'unsupported request'];
     }
 ?>

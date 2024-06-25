@@ -1,13 +1,11 @@
 const posts_container = document.getElementById('post_container')
 
+let current_page = 3
 
-function load_username() {
-    fetch('src/php/pictureGalery.php', {
+function load_galery() {
+    fetch(`src/php/pictureGalery.php?page=${current_page}`, {
         method: 'GET',
     }).then((res) => {
-        if (!res.ok) {
-            throw res.json().then(err => {throw err});
-        }
         return res.json()
     }).then(data => {
         if (data.status === "success") {
@@ -25,4 +23,4 @@ function load_username() {
     });
 }
 
-load_username()
+load_galery()

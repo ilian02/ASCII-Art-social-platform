@@ -36,6 +36,15 @@ class DB {
         return $userWithThisId['id'];
     }
 
+    public function getUsernameById($id) {
+        $sql = "SELECT username FROM users WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$id]);
+        $user = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+
+        return $user['username'];
+    }
+
     public function createNewPicture($userid, $content, $width, $height) {
 
         $sql = "INSERT INTO pictures (title, content, width, height, artist_id, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
@@ -56,12 +65,21 @@ class DB {
     }
 
     public function getPictureById($picId) {
-        $sql = "SELECT content, width, height, artist_id WHERE id = ?";
+        $sql = "SELECT content, width, height, artist_id WHERE id = ? FROM pictures";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 
         $picture = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
         return $picture;
+    }
+
+    public function getPictures() {
+        $sql = "SELECT content, width, height, artist_id FROM pictures";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        $pictures = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $pictures;
     }
 
     public function getConnection() {
