@@ -21,7 +21,7 @@ const symbols = [
     ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼", "━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋", "═", "║", "╔", "╗", "╚", "╝", "╠", "╡", "╢", "█"],
     ["▓", "▒", "░", "▀", "▄", "▌", "▐", "▂", "▃", "▅", "▆", "▇", "▉", "▊", "▋", "▍", "▎", "▏", "▔", "▕", "▲", "▼", "◀", "▶", "◆", "◇", "○", "●", "◎", "◯", "◉", "◌"],
     ["◍", "◊", "◁", "◀", "▷", "▸", "◂", "▪", "▫", "◻", "◼", "◽", "◾", "◿", "*", "♪", "♫", "+", "-", "=", "<", ">", "∕", "∖", "∗", "∘", "∙", "∭", "★", "☆", "☔", "☕"]
-];
+]
 
 let width = 40
 let height = 25
@@ -30,7 +30,7 @@ let cells_data = [[]]
 let symbols_width = 32
 let symbols_height = 4
 
-const urlParams = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(window.location.search)
 let pic_id = urlParams.get('pic_id')
 
 if (pic_id) {          // if we need to load picture
@@ -63,7 +63,7 @@ if (pic_id) {          // if we need to load picture
         
     }).catch((err) => {
         // console.error('Error: ', err)
-    });
+    })
 } 
 else {
     fetch('src/php/pictureEditor.php', {
@@ -88,7 +88,7 @@ else {
         
     }).catch((err) => {
         // console.error('Error: ', err)
-    });
+    })
     
 }
 
@@ -127,38 +127,37 @@ let clickedSymbol
 //adding event listeners to each cell after loading
 document.addEventListener('DOMContentLoaded', () => {
     addEventListeners()
-});
+})
 
 //add click event listener to each cell in the symbol table
 document.addEventListener('DOMContentLoaded', () => {
-    const symbolTable = document.getElementById('symbol-table');
+    const symbolTable = document.getElementById('symbol-table')
     
     symbolTable.querySelectorAll('td').forEach(cell => {
         cell.addEventListener('click', event => {
-            clickedSymbol = event.target;
-        });
-    });
-});
+            clickedSymbol = event.target
+        })
+    })
+})
 
 //adding event listneres on click for each resize_arrow
 for (let i = 0; i < 4; i++) {
     for(let j = 0; j <= 1; j++) {
         arrows[i][j].addEventListener('click', () => {
-            console.log('Clicked on cell: ', arrows[i][j].innerText);
+            console.log('Clicked on cell: ', arrows[i][j].innerText)
             resize_table(i, j)
-        });
+        })
     }
 }
 
 //adding mousedown event listeners for each cell of the drawing table
 function addEventListeners () {
-    const asciiTable = document.getElementById('ascii-table');
+    const asciiTable = document.getElementById('ascii-table')
 
-    let isMouseDown = false;
+    let isMouseDown = false
 
     function handleAction(event) {
-        const cell = event.target;
-        //console.log('ASCII Table cell clicked:', cell.innerText);
+        const cell = event.target
             if (clickedSymbol) {
                 cell.innerText = clickedSymbol.innerText
                 cells_data[cell.parentElement.rowIndex][cell.cellIndex] = clickedSymbol.innerText
@@ -169,41 +168,41 @@ function addEventListeners () {
         cell.addEventListener('mousedown', event => {
             isMouseDown = true
             handleAction(event)
-        });
+        })
 
         cell.addEventListener('mouseover', event => {
             if (isMouseDown) {
                 handleAction(event)
             }
-        });
+        })
 
         document.addEventListener('mouseup', () => {
-            isMouseDown = false;
-        });
-    });
+            isMouseDown = false
+        })
+    })
 }
 
 //event listener for copy button
 buttons[0].addEventListener('click', () => {
-    let rows = asciiTable.rows;
-    let tableText = '';
+    let rows = asciiTable.rows
+    let tableText = ''
 
     for (let i = 0; i < rows.length; i++) {
-        let cells = rows[i].cells;
+        let cells = rows[i].cells
         for (let j = 0; j < cells.length; j++) {
-            tableText += (cells[j].innerText == '' ? ' ' : cells[j].innerText) + ' ';
+            tableText += (cells[j].innerText == '' ? ' ' : cells[j].innerText) + ' '
         }
-        tableText += '\n';
+        tableText += '\n'
     }
-    let tempTextArea = document.createElement('textarea');
-    tempTextArea.value = tableText;
-    document.body.appendChild(tempTextArea);
+    let tempTextArea = document.createElement('textarea')
+    tempTextArea.value = tableText
+    document.body.appendChild(tempTextArea)
 
-    tempTextArea.select();
+    tempTextArea.select()
     document.execCommand('copy') //deprecated but its the only way to copy I know
-    document.body.removeChild(tempTextArea);
+    document.body.removeChild(tempTextArea)
 
-    alert('Table copied to clipboard!');
+    alert('Table copied to clipboard!')
 
 })
 
@@ -236,7 +235,7 @@ buttons[1].addEventListener('click', () => {
             
         }).catch((err) => {
             // console.error('Error: ', err)
-        });
+        })
 
     } 
     else {
@@ -262,10 +261,10 @@ buttons[1].addEventListener('click', () => {
             
         }).catch((err) => {
             // console.error('Error: ', err)
-        });
+        })
     }
 
-    alert('Picture saved!');
+    alert('Picture saved!')
 })
 
 //clears drawing table
@@ -287,7 +286,7 @@ function resize_table(direction, add) {
     if (direction == 0) {
         if (add) {
             let table_row = document.createElement('tr')
-            height += 1;
+            height += 1
             cells_data.unshift([])
 
             for (let i = 0; i < width; i++) {
@@ -300,7 +299,7 @@ function resize_table(direction, add) {
             asciiTable.insertBefore(table_row, asciiTable.firstChild)
         }
         else {
-            height -= 1;
+            height -= 1
             cells_data.shift()
 
             asciiTable.removeChild(asciiTable.firstElementChild)
@@ -356,7 +355,7 @@ function resize_table(direction, add) {
         console.log("down")
         if (add) {
             let table_row = document.createElement('tr')
-            height += 1;
+            height += 1
             cells_data.push([])
 
             for (let i = 0; i < width; i++) {
@@ -369,7 +368,7 @@ function resize_table(direction, add) {
             asciiTable.appendChild(table_row)
         }
         else {
-            height -= 1;
+            height -= 1
             cells_data.pop()
 
             asciiTable.removeChild(asciiTable.lastElementChild)
