@@ -6,6 +6,8 @@
 body {
     font-family: 'Roboto';
     margin: 0px;
+    background: rgb(123,241,168);
+    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
 }
 
 button {
@@ -51,11 +53,14 @@ h1 {
     margin-bottom: 50px;
 }
 
+#post_container {
 
+}
 
 #picture {
     border-collapse: collapse;
     border-color: rgb(185, 185, 185);
+    background-color: white;
 }
 
 #picture td {

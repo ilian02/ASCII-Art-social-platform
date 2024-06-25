@@ -2,15 +2,15 @@ const usernameField = document.getElementById("username-field")
 const editor_button = document.getElementById("picture-editor")
 const logout = document.getElementById('logout-button')
 const posts_container = document.getElementById('post_container')
+const sign_button = document.getElementById('sign-button')
 
 let posts
-let username
+let username = null
 
 logout.addEventListener('click', () => {
     const url = 'logout.html'
     window.location = url
 })
-
 
 editor_button.addEventListener('click', () => {
     const url = 'pictureEditor.html'
@@ -18,6 +18,9 @@ editor_button.addEventListener('click', () => {
     window.location = url
 })
 
+sign_button.addEventListener('click', () => {
+    location = 'register.html'
+})
 
 function load_username() {
     fetch('src/php/index.php', {
@@ -31,11 +34,17 @@ function load_username() {
         if (data.status === "success") {
             if (data.isLogged == true) {
                 username = data.username
-                usernameField.innerText = data.username
+                usernameField.innerText = username
                 posts = data.pictures
+
+                logout.style.display = 'block'
+                sign_button.style.display = 'none'
+
                 present_pictures()
             } else {
-                usernameField.innerHTML = 'Anon'
+                usernameField.innerHTML = ''
+                logout.style.display = 'none'
+                sign_button.style.display = 'block'
             }
         } else if (data.status === "unsuccessful") {
             console.log('status was unsucc')
@@ -47,6 +56,7 @@ function load_username() {
     }).catch((err) => {
         // console.error('Error: ', err)
     })
+
 }
 
 load_username()
