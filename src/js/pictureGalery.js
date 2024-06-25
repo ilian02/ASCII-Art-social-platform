@@ -1,18 +1,20 @@
 const posts_container = document.getElementById('post_container')
 
+
+
 let current_page = 1            // ADD BUTTONS TO CHANGE PAGES AND CALL LOAD_GALERY EVERYTIME YOU CHANGE PAGE
 let current_posts;
 
-/*
-let pic1 = {
-    id: 12,
-    content: "┼┼┼┼┼  ▄▄▄▄                                                                                                                        ▆▆ ▆ ▆ ▆ ▆  ▆                         ▆▆                                      ▆                ▆                     ▆                  ▆                    ▆                   ▆                   ▆                    ▆                  ▆                    ▆                   ▆             ▆▆▆    ▆                   ▆           ▆       ▆                    ▆         ▆        ▆                    ▆      ▆ ▆         ▆                     ▆▆   ▆           ▆▆                      ▆   ▆▆         ▆▆                        ▆▆   ▆▆ ▆▆▆ ▆▆                           ▆                                                                                                                                                                                                                                                                                                                ",
-    width: 40,
-    height: 25,
-    artist_id: 14,
-    username: "client1"
-};
-*/
+
+// let pic1 = {
+//     id: 12,
+//     content: "┼┼┼┼┼  ▄▄▄▄                                                                                                                        ▆▆ ▆ ▆ ▆ ▆  ▆                         ▆▆                                      ▆                ▆                     ▆                  ▆                    ▆                   ▆                   ▆                    ▆                  ▆                    ▆                   ▆             ▆▆▆    ▆                   ▆           ▆       ▆                    ▆         ▆        ▆                    ▆      ▆ ▆         ▆                     ▆▆   ▆           ▆▆                      ▆   ▆▆         ▆▆                        ▆▆   ▆▆ ▆▆▆ ▆▆                           ▆                                                                                                                                                                                                                                                                                                                ",
+//     width: 40,
+//     height: 25,
+//     artist_id: 14,
+//     username: "client1"
+// };
+
 
 
 function load_galery() {
@@ -80,8 +82,30 @@ function present_picture(picture) {
 
     picture_container.appendChild(table)
 
-    
-
 
     posts_container.appendChild(picture_container)
 }
+
+//present_picture(pic1)
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Get the ASCII table
+    const prev_button = document.getElementById('prev')
+    prev_button.addEventListener('click', ()=>{
+        current_page -= 1
+        posts_container.innerHTML = ''
+        load_galery()
+    })
+    
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Get the ASCII table
+    const next_button = document.getElementById('next')
+    next_button.addEventListener('click', ()=>{
+        current_page += 1
+        posts_container.innerHTML = ''
+        load_galery()
+    })
+    
+})

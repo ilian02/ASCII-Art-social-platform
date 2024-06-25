@@ -6,7 +6,21 @@
     margin-bottom: 50px;
 }
 
+#buttons {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border-color: rgb(185, 185, 185);
+    font-size: 28px;
+}
 
+#buttons td {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: 1px solid rgb(185, 185, 185);
+}
 
 #picture {
     border-collapse: collapse;
@@ -20,6 +34,10 @@
     text-align: center;
 }
 
-#picture > tr > td {
+#picture td {
     border: 1px solid rgb(185, 185, 185);
+}
+
+#pic-header {
+    font-size: 30px;
 }
