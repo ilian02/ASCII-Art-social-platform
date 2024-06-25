@@ -2,10 +2,13 @@ const usernameField = document.getElementById("username-field")
 const editor_button = document.getElementById("picture-editor")
 const logout = document.getElementById('logout-button')
 const posts_container = document.getElementById('post_container')
+const animation_container = document.getElementById('animation_container')
 const sign_button = document.getElementById('sign-button')
 
 let posts
+let animations
 let username = null
+let current_frame = 0
 
 logout.addEventListener('click', () => {
     const url = 'logout.html'
@@ -42,6 +45,7 @@ function load_username() {
                 sign_button.style.display = 'none'
 
                 present_pictures()
+                animation_loop()
             } else {
                 usernameField.innerHTML = ''
                 logout.style.display = 'none'
@@ -62,11 +66,33 @@ function load_username() {
 
 load_username()
 
+
+
+
+
 function present_pictures() {
-    console.log(posts)
+    //console.log(posts)
     posts.forEach(picture => {
         present_picture(picture)
     })
+}
+
+function present_animations() {
+    //console.log(posts)
+    animation_container.innerHTML = ''
+    animations.forEach(picture => {
+        present_picture(picture)
+    })
+}
+
+async function animation_loop() {
+    while(true) {
+        present_animations()
+        current_frame += 1
+        current_frame = current_frame % 5
+        await delay(1000);
+        //console.log('l')
+    }
 }
 
 function present_picture(picture) {
@@ -111,4 +137,8 @@ function present_picture(picture) {
 
 
     posts_container.appendChild(picture_container)
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
