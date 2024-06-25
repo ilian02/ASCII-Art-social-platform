@@ -1,6 +1,8 @@
 const posts_container = document.getElementById('post_container')
 
-let current_page = 3
+let current_page = 3            // ADD BUTTONS TO CHANGE PAGES AND CALL LOAD_GALERY EVERYTIME YOU CHANGE PAGE
+let current_posts;
+
 
 function load_galery() {
     fetch(`src/php/pictureGalery.php?page=${current_page}`, {
@@ -10,7 +12,8 @@ function load_galery() {
     }).then(data => {
         if (data.status === "success") {
             console.log(data.message)
-            console.log(data.posts)
+            current_posts = data.posts              // USE THIS AND DISPLAY POSTS ON HTML PAGE
+            console.log(current_posts)
         } else if (data.status === "unsuccessful") {
             console.log('status was unsucc')
             
