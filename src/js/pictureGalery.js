@@ -1,6 +1,6 @@
 const posts_container = document.getElementById('post_container')
 
-let current_page = 3            // ADD BUTTONS TO CHANGE PAGES AND CALL LOAD_GALERY EVERYTIME YOU CHANGE PAGE
+let current_page = 1            // ADD BUTTONS TO CHANGE PAGES AND CALL LOAD_GALERY EVERYTIME YOU CHANGE PAGE
 let current_posts;
 
 

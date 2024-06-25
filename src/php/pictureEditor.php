@@ -7,15 +7,23 @@
 
     header('Content-Type: application/json');
 
+
     $db = new DB();
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        if (!isset($_SESSION)) {
+            echo json_encode(array('status' => 'unsuccessful', 'message' => "user is not logged in", 'error' => 'user not logged in'));
+            return;
+        }
+    
+
         $pic_id = (isset($_GET['pic_id'])) ? $_GET['pic_id'] : ''; 
         if ($pic_id) {  
             $pic_data = $db->getPictureById($pic_id);
             echo json_encode(array('status' => 'success', 'message' => $pic_id, 'pic_data' => $pic_data));
         } else {
-            echo json_encode(array('status' => 'success', 'message' => 'nice'));
+            echo json_encode(array('status' => 'success', 'message' => 'creating new image'));
         }
     } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

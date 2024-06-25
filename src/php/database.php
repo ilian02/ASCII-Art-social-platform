@@ -74,7 +74,7 @@ class DB {
     }
 
     public function getPictures() {
-        $sql = "SELECT content, width, height, artist_id FROM pictures";
+        $sql = "SELECT id, content, width, height, artist_id, title FROM pictures ORDER BY created_at DESC";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 

@@ -245,7 +245,7 @@ buttons[0].addEventListener('click', () => {
 
 })
 
-function getContentAsString() {         // ---------------------------- add it here ---------------------------
+function getContentAsString() {
     return (cells_data.flat().join(''))
 }
 
@@ -262,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         picData['width'] = width
         picData['height'] = height
         picData['content'] =  getContentAsString()
+        console.log(picData['content'])
 
         if (pic_id == null) {
             fetch('src/php/pictureEditor.php', {
@@ -276,6 +277,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data['status'] == "success") {
                     pic_id = data['pic_id']
                 } else if (data.status === "unsuccessful") {
+                    /*
+                    if (data['error'] == 'user not logged in') {
+                        location = 'register.html'
+                    }
+                    */
                     console.log(data.message)
                 } else {
                     console.log(data.message)
