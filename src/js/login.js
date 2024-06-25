@@ -4,7 +4,7 @@ registerForm.addEventListener('submit', (event) => {
     event.preventDefault()
 
     const inputs = Array.from(document.querySelectorAll('label input'))
-    const userData = {};
+    const userData = {}
 
     inputs.forEach(input => {
         userData[input.name] = input.value
@@ -20,14 +20,14 @@ registerForm.addEventListener('submit', (event) => {
         body: JSON.stringify(userData),
     }).then((res) => {
         if (!res.ok) {
-            throw res.json().then(err => {throw err});
+            throw res.json().then(err => {throw err})
         }
         console.log(res.status)
         // console.log(res.json())
         return res.json()
     }).then(data => {
         if (data.status === "success") {
-            location = 'index.html';
+            location = 'index.html'
         } else if (data.status === "unsuccessful") {
             // ADD ERROR MESSAGE ON SCREEN
             console.log(data.message)
@@ -37,5 +37,5 @@ registerForm.addEventListener('submit', (event) => {
         
     }).catch((err) => {
         // console.error('Error: ', err)
-    });
+    })
 })

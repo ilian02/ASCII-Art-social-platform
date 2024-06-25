@@ -8,14 +8,14 @@ let username
 
 logout.addEventListener('click', () => {
     const url = 'logout.html'
-    window.location = url;
+    window.location = url
 })
 
 
 editor_button.addEventListener('click', () => {
     const url = 'pictureEditor.html'
     
-    window.location = url;
+    window.location = url
 })
 
 
@@ -24,7 +24,7 @@ function load_username() {
         method: 'GET',
     }).then((res) => {
         if (!res.ok) {
-            throw res.json().then(err => {throw err});
+            throw res.json().then(err => {throw err})
         }
         return res.json()
     }).then(data => {
@@ -46,7 +46,7 @@ function load_username() {
         
     }).catch((err) => {
         // console.error('Error: ', err)
-    });
+    })
 }
 
 load_username()
@@ -54,7 +54,7 @@ load_username()
 function present_pictures() {
     posts.forEach(picture => {
         present_picture(picture)
-    });
+    })
 }
 
 function present_picture(picture) {
@@ -66,7 +66,7 @@ function present_picture(picture) {
     pic_header.addEventListener('click', () => {
         console.log(picture['id'])
         const url = `pictureEditor.html?pic_id=${encodeURIComponent(picture['id'])}`
-        window.location = url;
+        window.location = url
     })
 
     //title.innerText = picture['title']
@@ -85,7 +85,7 @@ function present_picture(picture) {
         for (let j = 0; j < picture["width"]; j++) {
             let table_cell = document.createElement('td')
             table_cell.innerText = picture["content"][index]
-            index++;
+            index++
             table_cell.classList.add('cell')
             table_row.appendChild(table_cell)
     

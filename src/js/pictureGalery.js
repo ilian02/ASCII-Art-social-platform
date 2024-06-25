@@ -1,8 +1,13 @@
 const posts_container = document.getElementById('post_container')
 
-let current_page = 1            // ADD BUTTONS TO CHANGE PAGES AND CALL LOAD_GALERY EVERYTIME YOU CHANGE PAGE
-let current_posts;
+let current_page = 1
+let current_posts
 
+
+
+load_galery()
+
+//loads all pictures from the DB with GET request
 function load_galery() {
     fetch(`src/php/pictureGalery.php?page=${current_page}`, {
         method: 'GET',
@@ -10,8 +15,7 @@ function load_galery() {
         return res.json()
     }).then(data => {
         if (data.status === "success") {
-            // console.log(data.message)
-            current_posts = data.posts              // USE THIS AND DISPLAY POSTS ON HTML PAGE
+            current_posts = data.posts
             present_pictures()
             console.log(current_posts)
         } else if (data.status === "unsuccessful") {
@@ -23,32 +27,31 @@ function load_galery() {
         
     }).catch((err) => {
         // console.error('Error: ', err)
-    });
+    })
 }
 
-load_galery()
-
-
+//present all pictures
 function present_pictures() {
     current_posts.forEach(picture => {
         present_picture(picture)
-    });
+    })
 }
 
-
+//present single picture
 function present_picture(picture) {
 
+    //create container for each picture
     let picture_container = document.createElement('div')
     picture_container.id = 'picture-container'
 
+    //add title and username of creator
     let pic_header = document.createElement('h2')
-    //title.innerText = picture['title']
     pic_header.innerText = 'title' + ' by ' + picture['username'] 
     pic_header.id = 'pic-header'
     picture_container.appendChild(pic_header)
 
     
-
+    //create table and add to container
     let table = document.createElement('table')
     table.id = 'picture'
     let index = 0
@@ -58,7 +61,7 @@ function present_picture(picture) {
         for (let j = 0; j < picture["width"]; j++) {
             let table_cell = document.createElement('td')
             table_cell.innerText = picture["content"][index]
-            index++;
+            index++
             table_cell.classList.add('cell')
             table_row.appendChild(table_cell)
     
@@ -68,12 +71,12 @@ function present_picture(picture) {
 
     picture_container.appendChild(table)
 
-
+    //add pic container to all pictures
     posts_container.appendChild(picture_container)
 }
 
+//button for previous page
 document.addEventListener('DOMContentLoaded', () => {
-    // Get the ASCII table
     const prev_button = document.getElementById('prev')
     prev_button.addEventListener('click', ()=>{
         current_page -= 1
@@ -87,13 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
 })
 
+//button for next page
 document.addEventListener('DOMContentLoaded', () => {
-    // Get the ASCII table
     const next_button = document.getElementById('next')
     next_button.addEventListener('click', ()=>{
         current_page += 1
         posts_container.innerHTML = ''
         load_galery()
     })
-    
 })
