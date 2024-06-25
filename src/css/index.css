@@ -1,4 +1,10 @@
+/* Import the Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+
 body {
+    font-family: 'Roboto';
     margin: 0px;
 }
 
@@ -11,27 +17,36 @@ button {
     font-size: 16px;
     text-align: center;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 nav {
     padding-top: 25px;
     padding-left: 25px;
     margin: 0px;
-    background-color: rgb(208, 244, 222);
+    background: rgb(123,241,168);
+    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
 }
 
 h1 {
     margin-top: 0px;
     width: 250px;
     margin: auto;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
+.nav-buttons {
+    display: flex;
+    flex-direction: row; /* Align buttons in a row */
+    justify-content: center; /* Center buttons horizontally */
+    align-items: center; /* Center buttons vertically */
+    gap: 10px; /* Space between buttons */
+    padding: 10px 20px;
+}
 
 #picture-container {
     display: grid;
     place-items: center;
-    
     margin-top: 50px;
     margin-bottom: 50px;
 }

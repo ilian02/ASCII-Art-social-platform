@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    background: rgb(123,241,168);
+    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +10,7 @@ body {
     margin: 0;
 }
 .login-container {
-    background-color: white;
+    background-color: rgb(254, 250, 224);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,11 +34,12 @@ body {
     margin-bottom: 20px;
     width: 100%;
     padding: 10px;
-    background-color: #28a745;
+    background-color: rgb(123, 241, 168);
     border: none;
     border-radius: 5px;
-    color: white;
+    color: black;
     font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .login-container button:hover {
     background-color: #218838;
