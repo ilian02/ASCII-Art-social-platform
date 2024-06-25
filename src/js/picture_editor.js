@@ -23,7 +23,7 @@ let symbols_height = 4
 let cells_data = [[]]
 
 const symbols = [
-    ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "", "{", "|", "}", "~"],
+    ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", " ", "{", "|", "}", "~"],
     ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼", "━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋", "═", "║", "╔", "╗", "╚", "╝", "╠", "╡", "╢", "█"],
     ["▓", "▒", "░", "▀", "▄", "▌", "▐", "▂", "▃", "▅", "▆", "▇", "▉", "▊", "▋", "▍", "▎", "▏", "▔", "▕", "▲", "▼", "◀", "▶", "◆", "◇", "○", "●", "◎", "◯", "◉", "◌"],
     ["◍", "◊", "◁", "◀", "▷", "▸", "◂", "▪", "▫", "◻", "◼", "◽", "◾", "◿", "*", "♪", "♫", "+", "-", "=", "<", ">", "∕", "∖", "∗", "∘", "∙", "∭", "★", "☆", "☔", "☕"]
@@ -131,8 +131,8 @@ for (let i = 0; i < height; i++) {
 
     for (let j = 0; j < width; j++) {
         let table_cell = document.createElement('td')
-        cells_data[i][j] = ''
-        table_cell.innerText = ''
+        cells_data[i][j] = ' '
+        table_cell.innerText = ' '
         table_cell.classList.add('cell')
         table_row.appendChild(table_cell)
 
@@ -194,6 +194,7 @@ function addEventListeners () {
         //console.log('ASCII Table cell clicked:', cell.innerText);
             if (clickedSymbol) {
                 cell.innerText = clickedSymbol.innerText
+                cells_data[cell.parentElement.rowIndex][cell.cellIndex] = clickedSymbol.innerText
             }
     }
 
@@ -217,6 +218,7 @@ function addEventListeners () {
 
 buttons[0].addEventListener('click', () => {
     console.log("copy")
+
     let rows = asciiTable.rows;
     let tableText = '';
 
@@ -244,7 +246,7 @@ buttons[0].addEventListener('click', () => {
 })
 
 function getContentAsString() {         // ---------------------------- add it here ---------------------------
-    return "content of art";
+    return (cells_data.flat().join(''))
 }
 
 
