@@ -8,12 +8,23 @@
 </head>
 <body>
     
-    <h1>Галерия със снимки</h1>
+    <nav>
+        <h1>ASCII World</h1>
+        <div class="nav-buttons">
+            <h3 id="username-field"></h3>
+
+            <button id="picture-editor"  onclick="document.location='pictureeditor.html'">picture editor</button>
+            <button id="animation-editor" onclick="document.location='animationeditor.html'">animation editor</button>
+            <button id="picture-galery" onclick="document.location='picturegalery.html'">picture galery</button>
+            <button id="animation-galery">animation galery</button>
+        </div>
+    </nav>
+
 
     <table id="buttons">
         <tr>
-            <td id="prev">Prev</td>
-            <td id="next">Next</td>
+            <td class="but-left" id="prev">Prev</td>
+            <td class="but-left" id="next">Next</td>
         </tr>
     </table>
 

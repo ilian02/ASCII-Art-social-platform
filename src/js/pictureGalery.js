@@ -46,7 +46,7 @@ function present_picture(picture) {
 
     //add title and username of creator
     let pic_header = document.createElement('h2')
-    pic_header.innerText = 'title' + ' by ' + picture['username'] 
+    pic_header.innerText = picture['title'] + ' by ' + picture['username'] 
     pic_header.id = 'pic-header'
     picture_container.appendChild(pic_header)
 
