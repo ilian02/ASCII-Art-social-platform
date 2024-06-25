@@ -20,12 +20,12 @@ CREATE TABLE pictures (
 )
 
 CREATE TABLE animations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT(11) AUTO_INCREMENT,
     artist_id INT NOT NULL,
     created_at DATETIME NOT NULL,
     title VARCHAR(255) NOT NULL,
-    width INT(8) DEFAULT 30,
-    height INT(8) DEFAULT 30,
+    width INT(8) DEFAULT 40,
+    height INT(8) DEFAULT 25,
     PRIMARY KEY (id),
     FOREIGN KEY (artist_id) REFERENCES users (id) ON DELETE CASCADE
 );
@@ -33,7 +33,7 @@ CREATE TABLE animations (
 CREATE TABLE frames (
     id INT(11) NOT NULL AUTO_INCREMENT,
     animation_id INT NOT NULL,
-    order INT NOT NULL,
+    ind INT NOT NULL,
     content varchar(2500),
     PRIMARY KEY (id),
     FOREIGN KEY (animation_id) REFERENCES animations (id) ON DELETE CASCADE

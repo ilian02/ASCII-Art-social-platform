@@ -56,6 +56,7 @@ if (pic_id) {          // if we need to load picture
 
 
                 load_picture()
+                addEventListeners()
 
             } else {
                 console.log("error")

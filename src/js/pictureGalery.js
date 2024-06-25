@@ -1,21 +1,7 @@
 const posts_container = document.getElementById('post_container')
 
-
-
 let current_page = 1            // ADD BUTTONS TO CHANGE PAGES AND CALL LOAD_GALERY EVERYTIME YOU CHANGE PAGE
 let current_posts;
-
-
-// let pic1 = {
-//     id: 12,
-//     content: "┼┼┼┼┼  ▄▄▄▄                                                                                                                        ▆▆ ▆ ▆ ▆ ▆  ▆                         ▆▆                                      ▆                ▆                     ▆                  ▆                    ▆                   ▆                   ▆                    ▆                  ▆                    ▆                   ▆             ▆▆▆    ▆                   ▆           ▆       ▆                    ▆         ▆        ▆                    ▆      ▆ ▆         ▆                     ▆▆   ▆           ▆▆                      ▆   ▆▆         ▆▆                        ▆▆   ▆▆ ▆▆▆ ▆▆                           ▆                                                                                                                                                                                                                                                                                                                ",
-//     width: 40,
-//     height: 25,
-//     artist_id: 14,
-//     username: "client1"
-// };
-
-
 
 function load_galery() {
     fetch(`src/php/pictureGalery.php?page=${current_page}`, {
@@ -85,8 +71,6 @@ function present_picture(picture) {
 
     posts_container.appendChild(picture_container)
 }
-
-//present_picture(pic1)
 
 document.addEventListener('DOMContentLoaded', () => {
     // Get the ASCII table

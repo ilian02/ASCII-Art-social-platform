@@ -13,10 +13,7 @@ logout.addEventListener('click', () => {
 
 
 editor_button.addEventListener('click', () => {
-    const pic_id = '39'
-    const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
-
-    // const url = 'pictureEditor.html'
+    const url = 'pictureEditor.html'
     
     window.location = url;
 })
@@ -36,7 +33,6 @@ function load_username() {
                 username = data.username
                 usernameField.innerText = data.username
                 posts = data.pictures
-                console.log(posts)
                 present_pictures()
             } else {
                 usernameField.innerHTML = 'Anon'
@@ -67,6 +63,12 @@ function present_picture(picture) {
     picture_container.id = 'picture-container'
 
     let pic_header = document.createElement('h2')
+    pic_header.addEventListener('click', () => {
+        console.log(picture['id'])
+        const url = `pictureEditor.html?pic_id=${encodeURIComponent(picture['id'])}`
+        window.location = url;
+    })
+
     //title.innerText = picture['title']
     pic_header.innerText = 'title' + ' by ' + username
     pic_header.id = 'pic-header'

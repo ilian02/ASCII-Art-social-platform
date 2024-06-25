@@ -1,3 +1,29 @@
+body {
+    margin: 0px;
+}
+
+button {
+    background-color: rgb(252, 246, 189);
+    height: 35px;
+    padding: 15px;
+    border: 0px;
+    text-transform: uppercase;
+    font-size: 16px;
+    
+}
+
+nav {
+    padding-top: 25px;
+    padding-left: 25px;
+    margin: 0px;
+    background-color: rgb(208, 244, 222);
+}
+
+h1 {
+    margin-top: 0px;
+}
+
+
 #picture-container {
     display: grid;
     place-items: center;
