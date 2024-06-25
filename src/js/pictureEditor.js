@@ -302,11 +302,6 @@ buttons[1].addEventListener('click', () => {
             if (data['status'] == "success") {
                 pic_id = data['pic_id']
             } else if (data.status === "unsuccessful") {
-                /*
-                if (data['error'] == 'user not logged in') {
-                    location = 'register.html'
-                }
-                */
                 console.log(data.message)
             } else {
                 console.log(data.message)
@@ -346,6 +341,7 @@ buttons[1].addEventListener('click', () => {
 })
 
 buttons[2].addEventListener('click', () => {
+
     console.log('clear')
     const asciiTable = document.getElementById('ascii-table')
 
