@@ -3,7 +3,8 @@ const editor_button = document.getElementById("picture-editor")
 const logout = document.getElementById('logout-button')
 const posts_container = document.getElementById('post_container')
 
-let posts;
+let posts
+let username
 
 logout.addEventListener('click', () => {
     const url = 'logout.html'
@@ -12,9 +13,8 @@ logout.addEventListener('click', () => {
 
 
 editor_button.addEventListener('click', () => {
-    const pic_id = 'new_picture1'
-
-    //const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
+    // const pic_id = '39'
+    // const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
 
     const url = 'pictureEditor.html'
     
@@ -33,6 +33,7 @@ function load_username() {
     }).then(data => {
         if (data.status === "success") {
             if (data.isLogged == true) {
+                username = data.username
                 usernameField.innerText = data.username
                 posts = data.pictures
                 console.log(posts)
@@ -67,7 +68,7 @@ function present_picture(picture) {
 
     let pic_header = document.createElement('h2')
     //title.innerText = picture['title']
-    pic_header.innerText = 'title' + ' by ' + picture['username'] 
+    pic_header.innerText = 'title' + ' by ' + username
     pic_header.id = 'pic-header'
     picture_container.appendChild(pic_header)
 
