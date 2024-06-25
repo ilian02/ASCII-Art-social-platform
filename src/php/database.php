@@ -108,6 +108,25 @@ class DB {
         return $new_animation_id;
     }
 
+    public function getAnimations() {
+        $sql = "SELECT id, content, width, height, artist_id, title FROM pictures ORDER BY created_at DESC";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        $animations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $animations;
+    }
+
+    public function getFramesByAnimationId($animationId) {
+        $sql = "SELECT content FROM frames WHERE animation_id = ? ORDER BY ind ASC";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$animationId]);
+
+        $frames = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $frames;
+    }
+
+
     public function getConnection() {
         return $this->connection;
     }
