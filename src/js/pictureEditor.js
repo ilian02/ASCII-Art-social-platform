@@ -213,9 +213,105 @@ buttons[1].addEventListener('click', () => {
     picData['width'] = width
     picData['height'] = height
     picData['content'] =  cells_data.flat().join('')
+    //////////////////////////////
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const popup = document.getElementById('popup');
+    const saveTitleBtn = document.getElementById('saveTitleBtn');
+    const titleInput = document.getElementById('titleInput');
+
+    popup.style.display = 'flex';
+    
+
+    closePopupBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+
+
+    saveTitleBtn.addEventListener('click', () => {
+        picData['title'] = titleInput.value;
+        console.log('Title:', picData['title']);
+        save_to_db(picData)
+        popup.style.display = 'none';
+    });
+
+
+    ///////////////////////
+    
 
     //sending post request to the server to save the picture
+    // if (pic_id == null) {
+    //     //alert('Picture saved!')
+    //     fetch('src/php/pictureEditor.php', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(picData),
+    //     }).then((res) => {
+    //         return res.json()
+    //     }).then(data => {
+    //         if (data['status'] == "success") {
+    //             pic_id = data['pic_id']
+    //         } else if (data.status === "unsuccessful") {
+    //             console.log(data.message)
+    //         } else {
+    //             console.log(data.message)
+    //         }
+            
+    //     }).catch((err) => {
+    //         // console.error('Error: ', err)
+    //     })
+        
+    // } 
+    // else {
+    //     //alert('Picture saved!')
+    //     console.log('udpating')
+    //     picData['pic_id'] = pic_id
+    //     fetch('src/php/pictureEditor.php', {
+    //         method: 'UPDATE',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(picData),
+    //     }).then((res) => {
+    //         return res.json()
+    //     }).then(data => {
+    //         console.log(data)
+    //         if (data['status'] == 'success') {
+    //             console.log('updated ' + data['message'])
+    //         } else if (data['status'] == "unsuccessful") {
+    //             console.log(data['message'])
+    //         } else {
+    //             console.log(data['message'])
+    //         }
+            
+    //     }).catch((err) => {
+    //         // console.error('Error: ', err)
+    //     })
+    // }
+
+    
+})
+
+//clears drawing table
+buttons[2].addEventListener('click', () => {
+    const asciiTable = document.getElementById('ascii-table')
+
+    for (let i = 0; i < height; i++) {
+        for (let  j= 0; j < width; j++) {
+            asciiTable.rows[i].cells[j].innerText = ' '
+            cells_data[i][j] = ' '
+        }
+    }
+
+
+})
+
+//fetch for saving to DB
+function save_to_db (picData) {
+
     if (pic_id == null) {
+        //alert('Picture saved!')
         fetch('src/php/pictureEditor.php', {
             method: 'POST',
             headers: {
@@ -236,9 +332,10 @@ buttons[1].addEventListener('click', () => {
         }).catch((err) => {
             // console.error('Error: ', err)
         })
-
+        
     } 
     else {
+        //alert('Picture saved!')
         console.log('udpating')
         picData['pic_id'] = pic_id
         fetch('src/php/pictureEditor.php', {
@@ -263,23 +360,7 @@ buttons[1].addEventListener('click', () => {
             // console.error('Error: ', err)
         })
     }
-
-    alert('Picture saved!')
-})
-
-//clears drawing table
-buttons[2].addEventListener('click', () => {
-    const asciiTable = document.getElementById('ascii-table')
-
-    for (let i = 0; i < height; i++) {
-        for (let  j= 0; j < width; j++) {
-            asciiTable.rows[i].cells[j].innerText = ' '
-            cells_data[i][j] = ' '
-        }
-    }
-
-
-})
+}
 
 //resizes table on press of arrow key
 function resize_table(direction, add) {
@@ -407,3 +488,5 @@ function fill_table(content) {
     }
     console.log('ended')
 }
+
+///////////////
