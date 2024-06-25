@@ -22,6 +22,8 @@ let height = 25
 let symbols_width = 32
 let symbols_height = 4
 
+const urlParams = new URLSearchParams(window.location.search);
+
 let cells_data = [[]]
 
 const symbols = [
@@ -32,30 +34,70 @@ const symbols = [
 ];
 
 
-fetch('src/php/pictureEditor.php', {
-    method: 'GET',
-}).then((res) => {
-    return res.json()
-}).then(data => {
-    if (data.status === "success") {
-        if (data.logged == true) {
-            console.log('User is logged in')
+console.log(urlParams.get('pic_id'))
+pic_id = urlParams.get('pic_id')
+
+if (pic_id) {          // if we need to load picture
+    console.log('here')
+    fetch(`src/php/pictureEditor.php?pic_id=${pic_id}`, {
+        method: 'GET',
+    }).then((res) => {
+        return res.json()
+    }).then(data => {
+        console.log(data)
+        if (data.status === "success") {
+            if (data.logged == true) {
+                console.log('User is logged in')
+                
+                
+                // pic_to_load = data.pic_data             // ---------------------------- LOAD THIS INTO THE CELL --------------------------------
+                pic_to_load = "┼┼┼┼┼  ▄▄▄▄                                                                                                                        ▆▆ ▆ ▆ ▆ ▆  ▆                         ▆▆                                      ▆                ▆                     ▆                  ▆                    ▆                   ▆                   ▆                    ▆                  ▆                    ▆                   ▆             ▆▆▆    ▆                   ▆           ▆       ▆                    ▆         ▆        ▆                    ▆      ▆ ▆         ▆                     ▆▆   ▆           ▆▆                      ▆   ▆▆         ▆▆                        ▆▆   ▆▆ ▆▆▆ ▆▆                           ▆                                                                                                                                                                                                                                                                                                                "
+                
+                
+                width = data.width
+                height = data.height
+                console.log(pic_to_load)
+            } else {
+                console.log("error")
+            }
+        } else if (data.status === "unsuccessful") {
+            if (data['logged'] == false) {
+                location = 'login.html'
+            }
+            
         } else {
-            console.log("error")
-        }
-    } else if (data.status === "unsuccessful") {
-        if (data['logged'] == false) {
-            location = 'login.html'
+            console.log('how are we here')
         }
         
-    } else {
-        console.log('how are we here')
-    }
+    }).catch((err) => {
+        // console.error('Error: ', err)
+    });
+} else {
+    fetch('src/php/pictureEditor.php', {
+        method: 'GET',
+    }).then((res) => {
+        return res.json()
+    }).then(data => {
+        if (data.status === "success") {
+            if (data.logged == true) {
+                console.log('User is logged in')
+            } else {
+                console.log("error")
+            }
+        } else if (data.status === "unsuccessful") {
+            if (data['logged'] == false) {
+                location = 'login.html'
+            }
+            
+        } else {
+            console.log('how are we here')
+        }
+        
+    }).catch((err) => {
+        // console.error('Error: ', err)
+    });
     
-}).catch((err) => {
-    // console.error('Error: ', err)
-});
-
+}
 
 
 function resize_table(direction, add) {

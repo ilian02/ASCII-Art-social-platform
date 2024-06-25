@@ -13,10 +13,10 @@ logout.addEventListener('click', () => {
 
 
 editor_button.addEventListener('click', () => {
-    // const pic_id = '39'
-    // const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
+    const pic_id = '39'
+    const url = `pictureEditor.html?pic_id=${encodeURIComponent(pic_id)}`
 
-    const url = 'pictureEditor.html'
+    // const url = 'pictureEditor.html'
     
     window.location = url;
 })

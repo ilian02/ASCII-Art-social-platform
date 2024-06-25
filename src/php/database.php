@@ -74,9 +74,9 @@ class DB {
     }
 
     public function getPictureById($picId) {
-        $sql = "SELECT content, width, height, artist_id WHERE id = ? FROM pictures";
+        $sql = "SELECT content, width, height, artist_id FROM pictures WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$picId]);
 
         $picture = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
         return $picture;
