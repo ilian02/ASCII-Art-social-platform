@@ -11,7 +11,9 @@ const arrows = [
 ]
 
 const buttons = [
-    document.getElementById('copy-to-clipboard')
+    document.getElementById('copy-to-clipboard'),
+    document.getElementById('save-to-db-button'),
+    document.getElementById('clear-table')
 ]
 
 let width = 40
@@ -70,8 +72,8 @@ function resize_table(direction, add) {
 
             for (let i = 0; i < width; i++) {
                 let table_cell = document.createElement('td')
-                cells_data[0][i] = ''
-                table_cell.innerText = ''
+                cells_data[0][i] = ' '
+                table_cell.innerText = ' '
                 table_cell.classList.add('cell')
                 table_row.appendChild(table_cell)
             }
@@ -91,9 +93,9 @@ function resize_table(direction, add) {
             let i = 0
             asciiTable.querySelectorAll('tr').forEach(row => {
                 let newCell = document.createElement('td')
-                newCell.innerText = ''
+                newCell.innerText = ' '
                 row.insertBefore(newCell, row.firstElementChild)
-                cells_data[i].unshift('')
+                cells_data[i].unshift(' ')
                 i++
             })
         }
@@ -114,9 +116,9 @@ function resize_table(direction, add) {
             let i = 0
             asciiTable.querySelectorAll('tr').forEach(row => {
                 let newCell = document.createElement('td')
-                newCell.innerText = ''
+                newCell.innerText = ' '
                 row.appendChild(newCell)
-                cells_data[i].push('')
+                cells_data[i].push(' ')
                 i++
             })
         }
@@ -139,8 +141,8 @@ function resize_table(direction, add) {
 
             for (let i = 0; i < width; i++) {
                 let table_cell = document.createElement('td')
-                cells_data[0][i] = ''
-                table_cell.innerText = ''
+                cells_data[0][i] = ' '
+                table_cell.innerText = ' '
                 table_cell.classList.add('cell')
                 table_row.appendChild(table_cell)
             }
@@ -284,64 +286,72 @@ function getContentAsString() {
 pic_id = null
 
 // SENDING POST REQUEST TO SAVE ART IN DB
-document.addEventListener('DOMContentLoaded', () => {
-    const saveButton = document.getElementById('save-to-db-button');
+buttons[1].addEventListener('click', () => {
+    console.log('save')
+    picData = {}
+    picData['width'] = width
+    picData['height'] = height
+    picData['content'] =  getContentAsString()
 
-    saveButton.addEventListener('click', () => {
-        console.log('save')
-        console.log(saveButton.innerText)
-        picData = {}
-        picData['width'] = width
-        picData['height'] = height
-        picData['content'] =  getContentAsString()
-        console.log(picData['content'])
+    if (pic_id == null) {
+        fetch('src/php/pictureEditor.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(picData),
+        }).then((res) => {
+            return res.json()
+        }).then(data => {
+            if (data['status'] == "success") {
+                pic_id = data['pic_id']
+            } else if (data.status === "unsuccessful") {
+                /*
+                if (data['error'] == 'user not logged in') {
+                    location = 'register.html'
+                }
+                */
+                console.log(data.message)
+            } else {
+                console.log(data.message)
+            }
+            
+        }).catch((err) => {
+            // console.error('Error: ', err)
+        });
 
-        if (pic_id == null) {
-            fetch('src/php/pictureEditor.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(picData),
-            }).then((res) => {
-                return res.json()
-            }).then(data => {
-                if (data['status'] == "success") {
-                    pic_id = data['pic_id']
-                } else if (data.status === "unsuccessful") {
-                    console.log(data.message)
-                } else {
-                    console.log(data.message)
-                }
-                
-            }).catch((err) => {
-                // console.error('Error: ', err)
-            });
-    
-        } else {
-            console.log('udpating')
-            picData['pic_id'] = pic_id
-            fetch('src/php/pictureEditor.php', {
-                method: 'UPDATE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(picData),
-            }).then((res) => {
-                return res.json()
-            }).then(data => {
-                console.log(data)
-                if (data['status'] == 'success') {
-                    console.log('updated ' + data['message'])
-                } else if (data['status'] == "unsuccessful") {
-                    console.log(data['message'])
-                } else {
-                    console.log(data['message'])
-                }
-                
-            }).catch((err) => {
-                // console.error('Error: ', err)
-            });
-        }
-    })
-});
+    } else {
+        console.log('udpating')
+        picData['pic_id'] = pic_id
+        fetch('src/php/pictureEditor.php', {
+            method: 'UPDATE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(picData),
+        }).then((res) => {
+            return res.json()
+        }).then(data => {
+            console.log(data)
+            if (data['status'] == 'success') {
+                console.log('updated ' + data['message'])
+            } else if (data['status'] == "unsuccessful") {
+                console.log(data['message'])
+            } else {
+                console.log(data['message'])
+            }
+            
+        }).catch((err) => {
+            // console.error('Error: ', err)
+        });
+    }
+
+    alert('Picture saved!');
+})
+
+buttons[1].addEventListener('click', () => {
+
+
+
+
+})
