@@ -4,6 +4,8 @@ body {
     -ms-user-select: none; /* Disable selection for IE/Edge */
     user-select: none; /* Disable selection for supported browsers */
     font-family: Arial, sans-serif;
+    background: rgb(123,241,168);
+    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
 }
 
 #ascii-screen {
@@ -14,6 +16,7 @@ body {
 
 #symbol-table {
     margin-top: 20px;
+    background-color: white;
 }
 
 #table-container table {
@@ -21,6 +24,7 @@ body {
     margin-right: auto;
     border-collapse: collapse;
     border-color: rgb(185, 185, 185);
+    background-color: white;
 }
 
 #table-container table td {
@@ -111,6 +115,18 @@ body {
     width: 300px;
     position: relative;
     text-align: center;
+}
+
+.but-left {
+    background-color: rgb(252, 246, 189);
+    height: 35px;
+    padding: 10px;
+    border: 0px;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .close {
