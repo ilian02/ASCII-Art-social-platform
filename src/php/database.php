@@ -45,12 +45,11 @@ class DB {
         return $user['username'];
     }
 
-    public function createNewPicture($userid, $content, $width, $height) {
+    public function createNewPicture($userid, $content, $width, $height, $title) {
 
         $sql = "INSERT INTO pictures (title, content, width, height, artist_id, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
         $stmt = $this->connection->prepare($sql);
 
-        $title = null;
         $stmt->execute([$title, $content, $width, $height, $userid]);
 
         $new_pick_id = $this->connection->lastInsertId();
@@ -58,10 +57,10 @@ class DB {
         return $new_pick_id;
     }
 
-    public function updatePictureById($picId, $content, $width, $height) {
-        $sql = "UPDATE pictures SET content = ?, width = ?, height = ? WHERE id = ?";
+    public function updatePictureById($picId, $content, $width, $height, $title) {
+        $sql = "UPDATE pictures SET content = ?, width = ?, height = ?, title = ? WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->execute([$content, $width, $height, $picId]);
+        $stmt->execute([$content, $width, $height, $title, $picId]);
     }
 
     public function getUserPicturesById($userId) {

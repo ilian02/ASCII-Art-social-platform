@@ -51,9 +51,10 @@
         $height = $pictureData['height'];
         $content = $pictureData['content'];
         $pic_id = $pictureData['pic_id'];
+        $title = 'default';
 
         $user_id = $db->getUserIdByUsername($_SESSION['username']);
-        $db->updatePictureById($pic_id, $content, $width, $height);
+        $db->updatePictureById($pic_id, $content, $width, $height, $title);
         
         echo json_encode(array('status' => 'success', 'message' => $width));
     } 

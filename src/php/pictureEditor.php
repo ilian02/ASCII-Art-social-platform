@@ -32,11 +32,12 @@
         $width = $pictureData['width'];
         $height = $pictureData['height'];
         $content = $pictureData['content'];
+        $title = $pictureData['title'];
         
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anon';
 
         $user_id = $db->getUserIdByUsername($username);
-        $new_pic_id = $db->createNewPicture($user_id, $content, $width, $height);
+        $new_pic_id = $db->createNewPicture($user_id, $content, $width, $height, $title);
         echo json_encode(array('status' => 'success', 'message' => 'hello', 'pic_id' => $new_pic_id));
         
     } else if ($_SERVER['REQUEST_METHOD'] === 'UPDATE') {
@@ -49,9 +50,10 @@
         $height = $pictureData['height'];
         $content = $pictureData['content'];
         $pic_id = $pictureData['pic_id'];
+        $title = $pictureData['title'];
 
         $user_id = $db->getUserIdByUsername($_SESSION['username']);
-        $db->updatePictureById($pic_id, $content, $width, $height);
+        $db->updatePictureById($pic_id, $content, $width, $height, $title);
         
         echo json_encode(array('status' => 'success', 'message' => $width));
     } 
