@@ -254,10 +254,10 @@ pic_id = null
 
 // SENDING POST REQUEST TO SAVE ART IN DB
 document.addEventListener('DOMContentLoaded', () => {
-    const saveButton = document.getElementById('create-button');
+    const saveButton = document.getElementById('save-to-db-button');
 
     saveButton.addEventListener('click', () => {
-
+        console.log('save')
         picData = {}
         picData['width'] = width
         picData['height'] = height
