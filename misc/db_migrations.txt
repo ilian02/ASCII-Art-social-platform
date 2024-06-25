@@ -7,7 +7,7 @@ CREATE TABLE users (
     );
 
 
-CREATE TABLE pictures(
+CREATE TABLE pictures (
     id INT(11) NOT NULL AUTO_INCREMENT,
     title varchar(128),
     content varchar(2500),
@@ -17,4 +17,23 @@ CREATE TABLE pictures(
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIME,
     PRIMARY KEY (id),
     FOREIGN KEY (artist_id) REFERENCES users (id) ON DELETE CASCADE
+)
+
+CREATE TABLE animations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    artist_id INT NOT NULL,
+    created_at DATETIME NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    width INT(8) DEFAULT 30,
+    height INT(8) DEFAULT 30,
+    PRIMARY KEY (id),
+    FOREIGN KEY (artist_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE frames (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    animation_id INT NOT NULL,
+    content varchar(2500),
+    PRIMARY KEY (id),
+    FOREIGN KEY (animation_id) REFERENCES animations (id) ON DELETE CASCADE
 )
