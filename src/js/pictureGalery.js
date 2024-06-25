@@ -93,6 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const prev_button = document.getElementById('prev')
     prev_button.addEventListener('click', ()=>{
         current_page -= 1
+        if (current_page < 1) {
+            current_page = 1
+        }
+        console.log(current_page)
         posts_container.innerHTML = ''
         load_galery()
     })
