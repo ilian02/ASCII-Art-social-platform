@@ -64,6 +64,15 @@ class DB {
         $stmt->execute([$content, $width, $height, $picId]);
     }
 
+    public function getUserPicturesById($userId) {
+        $sql = "SELECT id, content, width, height, title FROM pictures WHERE artist_id = ? ORDER BY created_at DESC";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$userId]);
+
+        $pictures = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $pictures;
+    }
+
     public function getPictureById($picId) {
         $sql = "SELECT content, width, height, artist_id WHERE id = ? FROM pictures";
         $stmt = $this->connection->prepare($sql);
