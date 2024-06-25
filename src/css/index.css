@@ -1,0 +1,25 @@
+#picture-container {
+    display: grid;
+    place-items: center;
+    
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+#picture {
+    border-collapse: collapse;
+    border-color: rgb(185, 185, 185);
+}
+
+#picture td {
+    height: 24.8px;
+    width: 21.98px;
+    min-width: 21.98px;
+    text-align: center;
+}
+
+#picture > tr > td {
+    border: 1px solid rgb(185, 185, 185);
+}
