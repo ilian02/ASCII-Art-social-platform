@@ -360,7 +360,7 @@ function resize_table(direction, add) {
 
             for (let i = 0; i < width; i++) {
                 let table_cell = document.createElement('td')
-                cells_data[0][i] = ' '
+                cells_data[height-1][i] = ' '
                 table_cell.innerText = ' '
                 table_cell.classList.add('cell')
                 table_row.appendChild(table_cell)
