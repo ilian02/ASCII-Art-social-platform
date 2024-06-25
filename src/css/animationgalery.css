@@ -1,0 +1,63 @@
+
+/* Import the Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: Arial, sans-serif;    
+    margin: 0px;
+    background: rgb(123,241,168);
+    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
+}
+
+#picture-container {
+    display: grid;
+    place-items: center;
+    
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#buttons {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border-color: rgb(185, 185, 185);
+    font-size: 28px;
+}
+
+#buttons td {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: 1px solid rgb(185, 185, 185);
+}
+
+#picture {
+    border-collapse: collapse;
+    border-color: rgb(185, 185, 185);
+    background-color: white;
+}
+
+#picture td {
+    height: 24.8px;
+    width: 21.98px;
+    min-width: 21.98px;
+    text-align: center;
+}
+
+#picture td {
+    border: 1px solid rgb(185, 185, 185);
+}
+
+#pic-header {
+    font-size: 30px;
+}
+
+h1 {
+    width: 700px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    text-align: center;
+}
