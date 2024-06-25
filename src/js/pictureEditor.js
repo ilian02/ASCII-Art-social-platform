@@ -309,11 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data['status'] == "success") {
                     pic_id = data['pic_id']
                 } else if (data.status === "unsuccessful") {
-                    /*
-                    if (data['error'] == 'user not logged in') {
-                        location = 'register.html'
-                    }
-                    */
                     console.log(data.message)
                 } else {
                     console.log(data.message)

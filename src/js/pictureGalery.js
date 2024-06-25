@@ -3,6 +3,7 @@ const posts_container = document.getElementById('post_container')
 let current_page = 1            // ADD BUTTONS TO CHANGE PAGES AND CALL LOAD_GALERY EVERYTIME YOU CHANGE PAGE
 let current_posts;
 
+/*
 let pic1 = {
     id: 12,
     content: "┼┼┼┼┼  ▄▄▄▄                                                                                                                        ▆▆ ▆ ▆ ▆ ▆  ▆                         ▆▆                                      ▆                ▆                     ▆                  ▆                    ▆                   ▆                   ▆                    ▆                  ▆                    ▆                   ▆             ▆▆▆    ▆                   ▆           ▆       ▆                    ▆         ▆        ▆                    ▆      ▆ ▆         ▆                     ▆▆   ▆           ▆▆                      ▆   ▆▆         ▆▆                        ▆▆   ▆▆ ▆▆▆ ▆▆                           ▆                                                                                                                                                                                                                                                                                                                ",
@@ -11,6 +12,7 @@ let pic1 = {
     artist_id: 14,
     username: "client1"
 };
+*/
 
 
 function load_galery() {
@@ -20,8 +22,9 @@ function load_galery() {
         return res.json()
     }).then(data => {
         if (data.status === "success") {
-            console.log(data.message)
+            // console.log(data.message)
             current_posts = data.posts              // USE THIS AND DISPLAY POSTS ON HTML PAGE
+            present_pictures()
             console.log(current_posts)
         } else if (data.status === "unsuccessful") {
             console.log('status was unsucc')
@@ -39,12 +42,10 @@ load_galery()
 
 
 function present_pictures() {
-    current_posts.array.forEach(picture => {
+    current_posts.forEach(picture => {
         present_picture(picture)
     });
 }
-
-present_pictures()
 
 
 function present_picture(picture) {
