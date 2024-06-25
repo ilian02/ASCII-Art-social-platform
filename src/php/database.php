@@ -91,6 +91,24 @@ class DB {
         return $pictures;
     }
 
+    public function createNewAnimation($userid, $width, $height, $content, $title) {
+
+        $sql = "INSERT INTO animations (title, width, height, artist_id, created_at) VALUES (?, ?, ?, ?, NOW())";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$title, $width, $height, $userid]);
+        $new_animation_id = $this->connection->lastInsertId();
+        
+        $order = 1;
+        foreach($content as $frame) {
+            $sql = "INSERT INTO frames (animation_id, ind, content) VALUES (?, ?, ?)";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute([$new_animation_id, $order, $frame]);
+            $order += 1;
+        }
+
+        return $new_animation_id;
+    }
+
     public function getConnection() {
         return $this->connection;
     }

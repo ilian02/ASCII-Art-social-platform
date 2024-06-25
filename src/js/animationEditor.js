@@ -23,6 +23,7 @@ const symbols = [
     ["◍", "◊", "◁", "◀", "▷", "▸", "◂", "▪", "▫", "◻", "◼", "◽", "◾", "◿", "*", "♪", "♫", "+", "-", "=", "<", ">", "∕", "∖", "∗", "∘", "∙", "∭", "★", "☆", "☔", "☕"]
 ]
 
+let current_frame = 0
 const frame_counter = document.getElementById('frame-counter')
 frame_counter.innerText = "Frame: " + (current_frame + 1)
 
@@ -30,7 +31,6 @@ let width = 40
 let height = 25
 
 let frames = [[[]], [[]], [[]], [[]], [[]]]
-let current_frame = 0
 for(let i = 0; i < 5; i++) {
     current_frame = i
     create_empty_array()
@@ -142,8 +142,7 @@ buttons[0].addEventListener('click', () => {
 animation_id = null
 
 
-buttons[1].addEventListener('click', () => {//test!!!!!!!!!!!!!!!
-    console.log('save')
+buttons[1].addEventListener('click', () => {      
     animationData = {}
     animationData['width'] = width
     animationData['height'] = height
@@ -161,8 +160,11 @@ buttons[1].addEventListener('click', () => {//test!!!!!!!!!!!!!!!
     }).then((res) => {
         return res.json()
     }).then(data => {
+        console.log('save')
+        console.log(data)
         if (data['status'] == "success") {
             animation_id = data['animation_id']
+            console.log(data['message'])
         } else if (data.status === "unsuccessful") {
             console.log(data.message)
         } else {
