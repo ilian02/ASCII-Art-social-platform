@@ -35,9 +35,10 @@
         $height = $pictureData['height'];
         $content = $pictureData['content'];
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anon';
+        $title = $pictureData['title'];
 
         $user_id = $db->getUserIdByUsername($username);
-        $new_animation_id = $db->createNewAnimation($user_id, $width, $height, $content, 'default');
+        $new_animation_id = $db->createNewAnimation($user_id, $width, $height, $content, $title);
 
         echo json_encode(array('status' => 'success', 'message' => $new_animation_id));
         
@@ -51,8 +52,7 @@
         $height = $pictureData['height'];
         $content = $pictureData['content'];
         $pic_id = $pictureData['pic_id'];
-        $title = 'default';
-
+    
         $user_id = $db->getUserIdByUsername($_SESSION['username']);
         $db->updatePictureById($pic_id, $content, $width, $height, $title);
         
