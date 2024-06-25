@@ -233,63 +233,6 @@ buttons[1].addEventListener('click', () => {
         save_to_db(picData)
         popup.style.display = 'none';
     });
-
-
-    ///////////////////////
-    
-
-    //sending post request to the server to save the picture
-    // if (pic_id == null) {
-    //     //alert('Picture saved!')
-    //     fetch('src/php/pictureEditor.php', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(picData),
-    //     }).then((res) => {
-    //         return res.json()
-    //     }).then(data => {
-    //         if (data['status'] == "success") {
-    //             pic_id = data['pic_id']
-    //         } else if (data.status === "unsuccessful") {
-    //             console.log(data.message)
-    //         } else {
-    //             console.log(data.message)
-    //         }
-            
-    //     }).catch((err) => {
-    //         // console.error('Error: ', err)
-    //     })
-        
-    // } 
-    // else {
-    //     //alert('Picture saved!')
-    //     console.log('udpating')
-    //     picData['pic_id'] = pic_id
-    //     fetch('src/php/pictureEditor.php', {
-    //         method: 'UPDATE',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(picData),
-    //     }).then((res) => {
-    //         return res.json()
-    //     }).then(data => {
-    //         console.log(data)
-    //         if (data['status'] == 'success') {
-    //             console.log('updated ' + data['message'])
-    //         } else if (data['status'] == "unsuccessful") {
-    //             console.log(data['message'])
-    //         } else {
-    //             console.log(data['message'])
-    //         }
-            
-    //     }).catch((err) => {
-    //         // console.error('Error: ', err)
-    //     })
-    // }
-
     
 })
 
