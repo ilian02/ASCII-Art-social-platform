@@ -8,7 +8,6 @@ async function display_loop () {
     while(true) {
         present_pictures()
         current_frame += 1
-        current_frame = current_frame % 5
         await delay(1000);
         console.log('l')
     }
@@ -46,6 +45,7 @@ function present_pictures() {
 
 //present single picture
 function present_picture(picture) {
+    let frames_count = picture['frames'].length
 
     //create container for each picture
     let picture_container = document.createElement('div')
@@ -68,7 +68,7 @@ function present_picture(picture) {
         for (let j = 0; j < picture["width"]; j++) {
             let table_cell = document.createElement('td')
 
-            table_cell.innerText = picture['frames'][current_frame]['content'][index]
+            table_cell.innerText = picture['frames'][current_frame % frames_count]['content'][index]
     
             index++
             table_cell.classList.add('cell')
