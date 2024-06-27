@@ -22,6 +22,7 @@ const symbols = [
     ["◍", "◊", "◁", "◀", "▷", "▸", "◂", "▪", "▫", "◻", "◼", "◽", "◾", "◿", "*", "♪", "♫", "+", "-", "=", "<", ">", "∕", "∖", "∗", "∘", "∙", "∭", "★", "☆", "☔", "☕"]
 ]
 
+const max_frames = 60
 let current_frame = 0
 const frame_counter = document.getElementById('frame-counter')
 frame_counter.innerText = "Frame: " + (current_frame + 1)
@@ -141,12 +142,12 @@ buttons[0].addEventListener('click', () => {
 animation_id = null
 
 
-buttons[1].addEventListener('click', () => {      
+buttons[1].addEventListener('click', () => {        
     animationData = {}
     animationData['width'] = width
     animationData['height'] = height
     animationData['content'] = []
-    for (let i = 0; i < frames; i++) {
+    for (let i = 0; i < frames_count; i++) {
         animationData['content'].push(frames[i].flat().join(''))
     }
     //////////////////////////////
@@ -155,11 +156,14 @@ buttons[1].addEventListener('click', () => {
     const saveTitleBtn = document.getElementById('saveTitleBtn');
     const titleInput = document.getElementById('titleInput');
 
+    console.log(animationData)
+
     popup.style.display = 'flex';
 
 
     closePopupBtn.addEventListener('click', () => {
         popup.style.display = 'none';
+        
     });
 
 
@@ -248,13 +252,12 @@ frame_buttons[0].addEventListener('click', () => {
 
 //next
 frame_buttons[1].addEventListener('click', () => {
-    if(current_frame != 60) {
+    if(current_frame != max_frames) {
         current_frame += 1
-        if (frames <= current_frame) {
-            frames = current_frame + 1
+        if (frames_count <= current_frame) {
+            frames_count = current_frame + 1
         }
 
-        console.log(current_frame)
         if(frames[current_frame] === undefined) {
             frames.push([[]])
             create_empty_array()
