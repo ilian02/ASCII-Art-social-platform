@@ -135,6 +135,30 @@ class DB {
         return $animations;
     }
 
+    public function updateAnimationById($title, $width, $height, $frames, $animationId) {
+
+        $sql = "UPDATE animations SET title = ?, width = ?, height = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$title, $width, $height, $animationId]);
+    
+        $order = 1;
+
+        $sql = "DELETE FROM frames WHERE animation_id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$animationId]);
+
+        
+        foreach($frames as $frame) {
+            $sql = "INSERT INTO frames (animation_id, ind, content) VALUES (?, ?, ?)";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute([$animationId, $order, $frame]);
+            $order += 1;
+        }
+        
+    }
+
+    
+
     public function getConnection() {
         return $this->connection;
     }

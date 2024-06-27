@@ -1,4 +1,3 @@
-
 const asciiTable = document.getElementById('ascii-table')
 asciiTable.classList.add('bordered')
 const asciiSymbols = document.getElementById('symbol-table')
@@ -30,11 +29,11 @@ frame_counter.innerText = "Frame: " + (current_frame + 1)
 let width = 40
 let height = 25
 
-let frames = [[[]], [[]], [[]], [[]], [[]]]
-for(let i = 0; i < 5; i++) {
-    current_frame = i
-    create_empty_array()
-}
+let frames = [[[]]]
+let frames_count = 1
+
+
+
 current_frame = 0
 
 let symbols_width = 32
@@ -147,7 +146,7 @@ buttons[1].addEventListener('click', () => {
     animationData['width'] = width
     animationData['height'] = height
     animationData['content'] = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < frames; i++) {
         animationData['content'].push(frames[i].flat().join(''))
     }
     //////////////////////////////
@@ -234,24 +233,38 @@ function load_picture() {
 
 }
 
+//prev
 frame_buttons[0].addEventListener('click', () => {
     if(current_frame != 0) {
         current_frame -= 1
+
+            
+        frame_counter.innerText = "Frame: " + (current_frame + 1)
+        load_picture()
+        addEventListeners()
     }
 
-    frame_counter.innerText = "Frame: " + (current_frame + 1)
-    load_picture()
-    addEventListeners()
 })
 
+//next
 frame_buttons[1].addEventListener('click', () => {
-    if(current_frame != 4) {
+    if(current_frame != 60) {
         current_frame += 1
+        if (frames <= current_frame) {
+            frames = current_frame + 1
+        }
+
+        console.log(current_frame)
+        if(frames[current_frame] === undefined) {
+            frames.push([[]])
+            create_empty_array()
+        }
+            
+        frame_counter.innerText = "Frame: " + (current_frame + 1)
+        load_picture()
+        addEventListeners()
     }
 
-    frame_counter.innerText = "Frame: " + (current_frame + 1)
-    load_picture()
-    addEventListeners()
 })
 
 function create_empty_array() {

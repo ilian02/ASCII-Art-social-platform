@@ -40,7 +40,7 @@
         $user_id = $db->getUserIdByUsername($username);
         $new_animation_id = $db->createNewAnimation($user_id, $width, $height, $content, $title);
 
-        echo json_encode(array('status' => 'success', 'message' => $new_animation_id));
+        echo json_encode(array('status' => 'success', 'message' => 'created new animation', 'animation_id' => $new_animation_id));
         
     } else if ($_SERVER['REQUEST_METHOD'] === 'UPDATE') {
         
@@ -48,15 +48,17 @@
 
         // ADD CHECK IF CURRENT SESSION LOGGED IS THE SAME AS THE PIC AUTHOR
 
+        
         $width = $pictureData['width'];
         $height = $pictureData['height'];
         $content = $pictureData['content'];
-        $pic_id = $pictureData['pic_id'];
-    
-        $user_id = $db->getUserIdByUsername($_SESSION['username']);
-        $db->updatePictureById($pic_id, $content, $width, $height, $title);
+        $pic_id = $pictureData['animation_id'];
         
-        echo json_encode(array('status' => 'success', 'message' => $width));
+
+        $user_id = $db->getUserIdByUsername($_SESSION['username']);
+        $db->updateAnimationById($title, $width, $height, $content, $pic_id);
+        
+        echo json_encode(array('status' => 'success', 'message' => 'updated'));
     } 
     
 ?>
