@@ -5,8 +5,13 @@
 body {
     font-family: Arial, sans-serif;    
     margin: 0px;
-    background: rgb(123,241,168);
-    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
+    background: linear-gradient(202deg, 
+    rgba(123, 241, 168, 1) 0%, 
+    rgba(255, 239, 159, 0.88) 43%, 
+    rgba(144, 241, 239, 1) 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 
@@ -22,14 +27,6 @@ button {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-nav {
-    padding-top: 25px;
-    padding-left: 25px;
-    margin: 0px;
-    background: rgb(123,241,168);
-    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
-}
 
 h1 {
     margin-top: 0px;

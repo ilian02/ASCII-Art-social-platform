@@ -4,8 +4,13 @@ body {
     -ms-user-select: none; /* Disable selection for IE/Edge */
     user-select: none; /* Disable selection for supported browsers */
     font-family: Arial, sans-serif;
-    background: rgb(123,241,168);
-    background: linear-gradient(202deg, rgba(123,241,168,1) 0%, rgba(255,239,159,0.8839907192575406) 43%, rgba(144,241,239,1) 100%);
+    background: linear-gradient(202deg, 
+    rgba(123, 241, 168, 1) 0%, 
+    rgba(255, 239, 159, 0.88) 43%, 
+    rgba(144, 241, 239, 1) 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 #ascii-screen {
@@ -142,4 +147,31 @@ body {
 .close:hover,
 .close:focus {
     color: #000;
+}
+
+button {
+    background-color: rgb(252, 246, 189);
+    height: 35px;
+    padding: 10px;
+    border: 0px;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    padding-top: 25px;
+    padding-left: 25px;
+    margin: 0px;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: row; /* Align buttons in a row */
+    justify-content: center; /* Center buttons horizontally */
+    align-items: center; /* Center buttons vertically */
+    gap: 10px; /* Space between buttons */
+    padding: 10px 20px;
 }
