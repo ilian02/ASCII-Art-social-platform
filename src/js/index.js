@@ -25,7 +25,7 @@ sign_button.addEventListener('click', () => {
     location = 'register.html'
 })
 
-function load_username() {
+async function load_username() {
     fetch('src/php/index.php', {
         method: 'GET',
     }).then((res) => {
@@ -34,7 +34,6 @@ function load_username() {
         }
         return res.json()
     }).then(data => {
-        console.log(data.animations)
         if (data.status === "success") {
             if (data.isLogged == true) {
                 username = data.username
@@ -61,7 +60,7 @@ function load_username() {
         }
         
     }).catch((err) => {
-        // console.error('Error: ', err)
+        console.error('Error: ', err)
     })
 
 }
@@ -69,25 +68,29 @@ function load_username() {
 load_username()
 
 function present_pictures() {
-    posts.forEach(picture => {
-        present_picture(picture)
-    })
+    if (posts != undefined) {
+        posts.forEach(picture => {
+            present_picture(picture)
+        })
+    }
 }
 
 function present_animations() {
     animation_container.innerHTML = ''
-    animations.forEach(animation => {
-        present_animation(animation)
-    })
+    if (animations != undefined) {
+        
+        animations.forEach(animation => {
+            present_animation(animation)
+        })
+    }
 }
 
 async function animation_loop() {
     while(true) {
         present_animations()
         current_frame += 1
-        current_frame = current_frame % 5
+        current_frame = current_frame % 60
         await delay(1000);
-        //console.log('l')
     }
 }
 
@@ -98,13 +101,17 @@ function present_picture(picture) {
 
     let pic_header = document.createElement('h2')
     pic_header.addEventListener('click', () => {
-        console.log(picture['id'])
         const url = `pictureEditor.html?pic_id=${encodeURIComponent(picture['id'])}`
         window.location = url
     })
 
-    //title.innerText = picture['title']
-    pic_header.innerText = 'title' + ' by ' + username
+    if (picture['title']) {
+        pic_header.innerText = picture['title']
+    }
+    else {
+        pic_header.innerText = "untitled"
+    }
+
     pic_header.id = 'pic-header'
     picture_container.appendChild(pic_header)
 
@@ -139,16 +146,19 @@ function present_animation(picture) {
 
     let pic_header = document.createElement('h2')
     pic_header.addEventListener('click', () => {
-        console.log(picture['id'])
-        const url = `pictureEditor.html?pic_id=${encodeURIComponent(picture['id'])}`
+        const url = `animationEditor.html?animation_id=${encodeURIComponent(picture['id'])}`
         window.location = url
     })
 
-    //title.innerText = picture['title']
-    pic_header.innerText = 'title' + ' by ' + username
+    if (picture['title']) {
+        pic_header.innerText = picture['title']
+    }
+    else {
+        pic_header.innerText = "untitled"
+    }
+
     pic_header.id = 'pic-header'
     picture_container.appendChild(pic_header)
-
     
 
     let table = document.createElement('table')
@@ -159,7 +169,7 @@ function present_animation(picture) {
     
         for (let j = 0; j < picture["width"]; j++) {
             let table_cell = document.createElement('td')
-            table_cell.innerText = picture['frames'][current_frame]['content'][index]
+            table_cell.innerText = picture['frames'][current_frame % picture.frames.length]['content'][index]
     
             index++
             table_cell.classList.add('cell')

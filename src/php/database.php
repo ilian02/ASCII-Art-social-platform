@@ -117,8 +117,17 @@ class DB {
         return $animations;
     }
 
+    public function getAnimationById($animationId) {
+        $sql = "SELECT id, width, height, artist_id, title FROM animations WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([$animationId]);
+
+        $animation = $stmt->fetchAll()[0];
+        return $animation;
+    }
+
     public function getFramesByAnimationId($animationId) {
-        $sql = "SELECT content FROM frames WHERE animation_id = ? ORDER BY ind ASC";
+        $sql = "SELECT content FROM frames WHERE animation_id = ? ORDER BY id ASC";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([$animationId]);
 

@@ -9,7 +9,6 @@ async function display_loop () {
         present_pictures()
         current_frame += 1
         await delay(1000);
-        console.log('l')
     }
 }
 

@@ -94,11 +94,16 @@ h1 {
     text-align: center;
 }
 
-#buttons tr td{
-    font-size: 24px;
-    text-align: center;
+
+
+#buttons td {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     border: 1px solid rgb(185, 185, 185);
 }
+
 
 .but-left {
     background-color: rgb(252, 246, 189);

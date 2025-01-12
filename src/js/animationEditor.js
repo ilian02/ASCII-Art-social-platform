@@ -40,6 +40,65 @@ current_frame = 0
 let symbols_width = 32
 let symbols_height = 4
 
+const urlParams = new URLSearchParams(window.location.search)
+let animation_id_url = urlParams.get('animation_id')
+
+if (animation_id_url) {          // if we need to load picture
+    fetch(`src/php/animationEditor.php?animation_id=${animation_id_url}`, {
+        method: 'GET',
+    }).then((res) => {
+        return res.json()
+    }).then(data => {
+        if (data.status === "success") {
+            if (data.logged == true) {
+                animation_data = data.animation_data
+                load_frames(data.frames)
+                load_picture()
+                addEventListeners()
+
+            } else {
+                console.log("error")
+            }
+        } else if (data.status === "unsuccessful") {
+            if (data['logged'] == false) {
+                location = 'login.html'
+            }
+            
+        } else {
+            console.log('how are we here')
+        }
+        
+    }).catch((err) => {
+        // console.error('Error: ', err)
+    })
+} 
+else {
+    fetch('src/php/pictureEditor.php', {
+        method: 'GET',
+    }).then((res) => {
+        return res.json()
+    }).then(data => {
+        if (data.status === "success") {
+            if (data.logged == true) {
+                console.log('User is logged in')
+            } else {
+                console.log("error")
+            }
+        } else if (data.status === "unsuccessful") {
+            if (data['logged'] == false) {
+                location = 'login.html'
+            }
+            
+        } else {
+            console.log('how are we here')
+        }
+        
+    }).catch((err) => {
+        // console.error('Error: ', err)
+    })
+}
+
+
 for (let i = 0; i < height; i++) {
     let table_row = document.createElement('tr')
     frames[current_frame][i] = []
@@ -84,6 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
+function load_frames(frames_data) {
+    frames_count = frames_data.length
+    for(let k = 0; k < frames_count; k++) {
+        frames[k] = []
+        for (let i = 0; i < height; i++) {
+            frames[k][i] = []
+            for (let j = 0; j < width; j++) {
+                frames[k][i][j] = frames_data[k].content[i * width + j]
+            }
+        }
+    }
+    console.log(frames)
+}
 
 function addEventListeners () {
     const asciiTable = document.getElementById('ascii-table')
@@ -277,7 +349,6 @@ function create_empty_array() {
             frames[current_frame][i][j] = ' '
         }
     }
-    
 }
 
 

@@ -17,16 +17,16 @@
             return;
         }
     
-        /*
-        $pic_id = (isset($_GET['pic_id'])) ? $_GET['pic_id'] : ''; 
-        if ($pic_id) {  
-            $pic_data = $db->getPictureById($pic_id);
-            //echo json_encode(array('status' => 'success', 'message' => $pic_id, 'logged' => true));
-            echo json_encode(array('status' => 'success', 'message' => $pic_id, 'pic_data' => $pic_data, 'logged' => true));
+        // Adding function to click an animation from your gallery and edit it
+        $animation_id = (isset($_GET['animation_id'])) ? $_GET['animation_id'] : ''; 
+        if ($animation_id) {  
+            $animation_data = $db->getAnimationById($animation_id);
+            $animation_frames = $db->getFramesByAnimationId($animation_id);
+            echo json_encode(array('status' => 'success', 'message' => "Editing older animation", 'animation_data' => $animation_data, 'frames' => $animation_frames, 'logged' => true));
         } else {
             echo json_encode(array('status' => 'success', 'message' => 'creating new image', 'logged' => true));
         }
-        */
+
     } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $pictureData = json_decode(file_get_contents("php://input"), true);

@@ -20,7 +20,6 @@
         $pic_id = (isset($_GET['pic_id'])) ? $_GET['pic_id'] : ''; 
         if ($pic_id) {  
             $pic_data = $db->getPictureById($pic_id);
-            //echo json_encode(array('status' => 'success', 'message' => $pic_id, 'logged' => true));
             echo json_encode(array('status' => 'success', 'message' => $pic_id, 'pic_data' => $pic_data, 'logged' => true));
         } else {
             echo json_encode(array('status' => 'success', 'message' => 'creating new image', 'logged' => true));

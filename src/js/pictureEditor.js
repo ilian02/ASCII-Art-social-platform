@@ -89,7 +89,6 @@ else {
     }).catch((err) => {
         // console.error('Error: ', err)
     })
-    
 }
 
 //create the empty table
